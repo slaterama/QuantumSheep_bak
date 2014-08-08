@@ -1,2 +1,4 @@
-include ':app', ':qslib'
+include ':app', ':qslib', ':qslib-alpha', ':qslib-beta'
 project(':qslib').projectDir = new File('libraries/qslib')
+project(':qslib-alpha').projectDir = new File('libraries/qslib-alpha')
+project(':qslib-beta').projectDir = new File('libraries/qslib-beta')

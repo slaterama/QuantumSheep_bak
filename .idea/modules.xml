@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/QuantumSheep.iml" filepath="$PROJECT_DIR$/QuantumSheep.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/qslib/qslib.iml" filepath="$PROJECT_DIR$/libraries/qslib/qslib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/qslib-alpha/qslib-alpha.iml" filepath="$PROJECT_DIR$/libraries/qslib-alpha/qslib-alpha.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/qslib-beta/qslib-beta.iml" filepath="$PROJECT_DIR$/libraries/qslib-beta/qslib-beta.iml" />
     </modules>
   </component>
 </project>

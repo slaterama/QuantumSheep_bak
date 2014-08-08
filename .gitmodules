@@ -1,3 +1,9 @@
 [submodule "libraries/qslib"]
 	path = libraries/qslib
 	url = https://slaterama@bitbucket.org/slaterama/qslib-android.git
+[submodule "libraries/qslib-alpha"]
+	path = libraries/qslib-alpha
+	url = https://slaterama@bitbucket.org/slaterama/qslib-alpha-android.git
+[submodule "libraries/qslib-beta"]
+	path = libraries/qslib-beta
+	url = https://slaterama@bitbucket.org/slaterama/qslib-beta-android.git

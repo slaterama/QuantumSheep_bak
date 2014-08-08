@@ -10,6 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/libraries/qslib" />
+            <option value="$PROJECT_DIR$/libraries/qslib-alpha" />
+            <option value="$PROJECT_DIR$/libraries/qslib-beta" />
           </set>
         </option>
       </GradleProjectSettings>
