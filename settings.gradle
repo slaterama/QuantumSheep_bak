@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':qslib'
+project(':qslib').projectDir = new File('libraries/qslib')

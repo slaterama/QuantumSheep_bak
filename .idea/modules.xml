@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QuantumSheep.iml" filepath="$PROJECT_DIR$/QuantumSheep.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/qslib/qslib.iml" filepath="$PROJECT_DIR$/libraries/qslib/qslib.iml" />
     </modules>
   </component>
 </project>
