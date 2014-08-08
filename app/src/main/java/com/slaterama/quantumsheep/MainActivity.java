@@ -1,13 +1,20 @@
 package com.slaterama.quantumsheep;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.slaterama.qslib.alpha.app.architecture.Architecture;
+import com.slaterama.qslib.alpha.app.architecture.ArchitectureMVP;
+import com.slaterama.qslib.alpha.app.architecture.ArchitectureManager;
 import com.slaterama.qslib.utils.LogEx;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
+
+	private final static int ARCHITECTURE_ID = 0;
+
+	private Architecture mArchitecture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +22,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 		LogEx.d("This is a test");
+
+		ArchitectureManager architectureManager = ArchitectureManager.getInstance();
+		mArchitecture = architectureManager.getArchitecture(this, ARCHITECTURE_ID, null, mArchitectureCallbacks);
     }
 
     @Override
@@ -35,4 +45,11 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+	private ArchitectureManager.ArchitectureCallbacks mArchitectureCallbacks = new ArchitectureManager.ArchitectureCallbacks() {
+		@Override
+		public Architecture onCreateArchitecture(int id, Bundle args) {
+			return new ArchitectureMVP();
+		}
+	};
 }

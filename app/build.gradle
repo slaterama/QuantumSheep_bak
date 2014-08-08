@@ -22,4 +22,6 @@ android {
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
 	compile project(':qslib')
+	compile project(':qslib-alpha')
+	compile project(':qslib-beta')
 }
