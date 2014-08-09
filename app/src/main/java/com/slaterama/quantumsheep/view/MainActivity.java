@@ -5,13 +5,14 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.slaterama.qslib.alpha.support.v4.app.archnew.Architecture;
-import com.slaterama.qslib.alpha.support.v4.app.archnew.ArchitectureMVP;
-import com.slaterama.qslib.alpha.support.v4.app.archnew.SupportArchitectureManager;
-import com.slaterama.qslib.utils.LogEx;
+import com.slaterama.qslib.alpha.app.architecture.Architecture;
+import com.slaterama.qslib.alpha.app.architecture.ArchitectureMVP;
+import com.slaterama.qslib.alpha.app.architecture.AbsArchitectureManager.ArchitectureCallbacks;
+import com.slaterama.qslib.alpha.app.architecture.SupportArchitectureManager;
 import com.slaterama.quantumsheep.R;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity
+		implements ArchitectureCallbacks {
 
 	private final static int ARCHITECTURE_ID = 0;
 
@@ -22,10 +23,8 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-		LogEx.d("This is a test");
-
 		mArchitecture = SupportArchitectureManager.getInstance().getArchitecture(
-				this, ARCHITECTURE_ID, null, mArchitectureCallbacks);
+				this, ARCHITECTURE_ID, null, this);
     }
 
     @Override
@@ -47,10 +46,8 @@ public class MainActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-	private SupportArchitectureManager.ArchitectureCallbacks mArchitectureCallbacks = new SupportArchitectureManager.ArchitectureCallbacks() {
-		@Override
-		public Architecture onCreateArchitecture(int id, Bundle args) {
-			return new ArchitectureMVP();
-		}
-	};
+	@Override
+	public Architecture onCreateArchitecture(int id, Bundle args) {
+		return new ArchitectureMVP();
+	}
 }
