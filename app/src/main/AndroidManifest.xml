@@ -3,7 +3,7 @@
     package="com.slaterama.quantumsheep" >
 
     <application
-		android:name=".QuantumSheepApp"
+        android:name=".QuantumSheepApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -18,6 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.ArchitectureActivity"
+            android:label="@string/architecture_activity_title" >
+			<intent-filter>
+				<action android:name="com.slaterama.quantumsheep.action.ARCHITECTURE" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

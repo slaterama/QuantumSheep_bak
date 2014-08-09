@@ -1,31 +1,28 @@
 package com.slaterama.quantumsheep.view;
 
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import com.slaterama.qslib.alpha.app.architecture.Architecture;
-import com.slaterama.qslib.alpha.app.architecture.ArchitectureMVP;
-import com.slaterama.qslib.alpha.app.architecture.AbsArchitectureManager.ArchitectureCallbacks;
-import com.slaterama.qslib.alpha.app.architecture.SupportArchitectureManager;
 import com.slaterama.quantumsheep.R;
 
-public class MainActivity extends FragmentActivity
-		implements ArchitectureCallbacks {
-
-	private final static int ARCHITECTURE_ID = 0;
-
-	private Architecture mArchitecture;
+public class MainActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-		mArchitecture = SupportArchitectureManager.getInstance().getArchitecture(
-				this, ARCHITECTURE_ID, null, this);
-    }
+		setListAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1,
+				getResources().getStringArray(R.array.main_menu)));
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,7 +44,13 @@ public class MainActivity extends FragmentActivity
     }
 
 	@Override
-	public Architecture onCreateArchitecture(int id, Bundle args) {
-		return new ArchitectureMVP();
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		switch (position) {
+			case 0:
+				startActivity(new Intent(this, ArchitectureActivity.class));
+				break;
+			default:
+				Toast.makeText(this, R.string.toast_not_yet_supported, Toast.LENGTH_SHORT).show();
+		}
 	}
 }

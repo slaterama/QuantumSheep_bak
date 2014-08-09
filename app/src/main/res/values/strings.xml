@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<!-- Boilerplate -->
+
     <string name="app_name">QuantumSheep</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+	<!-- App-wide strings -->
+
+	<string name="architecture_test">Architecture Test</string>
+	<string name="login_test">Login Test</string>
+	<string name="other_stuff">Other Stuff</string>
+
+    <string-array name="main_menu">
+        <item>@string/architecture_test</item>
+        <item>@string/login_test</item>
+        <item>@string/other_stuff</item>
+    </string-array>
+
+    <string name="toast_not_yet_supported">This feature is not yet supported.</string>
+
+	<!-- Architecture -->
+
+	<string name="architecture_fragment_one_hello_world">Hello fragment one!</string>
+	<string name="architecture_fragment_two_hello_world">Hello fragment two!</string>
+
+	<string name="architecture_activity_title">@string/architecture_test</string>
+	<string name="architecture_test_click_count">Click count: %d</string>
+	<string name="architecture_test_increment_count">Increment Count</string>
 
 </resources>
