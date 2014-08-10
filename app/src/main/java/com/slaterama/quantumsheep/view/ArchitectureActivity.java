@@ -6,18 +6,20 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.slaterama.qslib.alpha.app.architecture.AbsArchitectureManager.ArchitectureCallbacks;
-import com.slaterama.qslib.alpha.app.architecture.Architecture;
-import com.slaterama.qslib.alpha.support.v4.app.architecture.SupportArchitectureManager;
+import com.slaterama.qslib.alpha.app.pattern.Pattern;
+import com.slaterama.qslib.alpha.app.pattern.PatternManager;
+import com.slaterama.qslib.alpha.app.pattern.PatternManager.PatternCallbacks;
 import com.slaterama.quantumsheep.R;
-import com.slaterama.quantumsheep.architecture.ArchitectureTestArchitecture;
+import com.slaterama.quantumsheep.pattern.TestPattern;
 
 public class ArchitectureActivity extends ActionBarActivity
-		implements ArchitectureCallbacks {
+		implements PatternCallbacks {
 
-	private final static int ARCHITECTURE_ID = 0;
+	private final static int PATTERN_ID = 0;
 
-	private Architecture mArchitecture;
+	private PatternManager mPatternManager;
+
+	private Pattern mPattern;
 
 	private ArchitectureOneFragment mFragmentOne;
 	private ArchitectureTwoFragment mFragmentTwo;
@@ -27,8 +29,8 @@ public class ArchitectureActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_architecture);
 
-		mArchitecture = SupportArchitectureManager.getInstance().getArchitecture(
-				this, ARCHITECTURE_ID, null, this);
+		mPatternManager = PatternManager.newInstance(this);
+		mPattern = mPatternManager.initPattern(PATTERN_ID, null, this);
     }
 
 	@Override
@@ -59,7 +61,7 @@ public class ArchitectureActivity extends ActionBarActivity
     }
 
 	@Override
-	public Architecture onCreateArchitecture(int id, Bundle args) {
-		return new ArchitectureTestArchitecture();
+	public Pattern onCreatePattern(int id, Bundle args) {
+		return new TestPattern();
 	}
 }
