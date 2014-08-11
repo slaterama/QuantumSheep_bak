@@ -47,7 +47,7 @@ public class MainActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		switch (position) {
 			case 0:
-				startActivity(new Intent(this, ArchitectureActivity.class));
+				startActivity(new Intent(this, PatternActivity.class));
 				break;
 			default:
 				Toast.makeText(this, R.string.toast_not_yet_supported, Toast.LENGTH_SHORT).show();

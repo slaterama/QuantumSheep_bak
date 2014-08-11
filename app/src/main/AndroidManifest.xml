@@ -20,8 +20,8 @@
         </activity>
 
         <activity
-            android:name=".view.ArchitectureActivity"
-            android:label="@string/architecture_activity_title" >
+            android:name=".view.PatternActivity"
+            android:label="@string/pattern_activity_title" >
 			<intent-filter>
 				<action android:name="com.slaterama.quantumsheep.action.ARCHITECTURE" />
 

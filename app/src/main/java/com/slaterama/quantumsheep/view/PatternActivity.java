@@ -9,36 +9,37 @@ import android.view.MenuItem;
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
 import com.slaterama.qslib.alpha.app.pattern.PatternManager;
 import com.slaterama.qslib.alpha.app.pattern.PatternManager.PatternCallbacks;
+import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
-import com.slaterama.quantumsheep.pattern.TestPattern;
+import com.slaterama.quantumsheep.pattern.TestActivityPattern;
 
-public class ArchitectureActivity extends ActionBarActivity
+public class PatternActivity extends ActionBarActivity
 		implements PatternCallbacks {
 
-	private final static int PATTERN_ID = 0;
+	public final static int PATTERN_ID = 0;
 
 	private PatternManager mPatternManager;
+	private Pattern mActivityPattern;
 
-	private Pattern mPattern;
-
-	private ArchitectureOneFragment mFragmentOne;
-	private ArchitectureTwoFragment mFragmentTwo;
+	private PatternOneFragment mFragmentOne;
+	private PatternTwoFragment mFragmentTwo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_architecture);
+        setContentView(R.layout.activity_pattern);
 
 		mPatternManager = PatternManager.newInstance(this);
-		mPattern = mPatternManager.initPattern(PATTERN_ID, null, this);
-    }
+		mActivityPattern = mPatternManager.initPattern(PATTERN_ID, null, this);
+		LogEx.d();
+	}
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		mFragmentOne = (ArchitectureOneFragment) fragmentManager.findFragmentById(R.id.architecture_fragment_one);
-		mFragmentTwo = (ArchitectureTwoFragment) fragmentManager.findFragmentById(R.id.architecture_fragment_two);
+		mFragmentOne = (PatternOneFragment) fragmentManager.findFragmentById(R.id.architecture_fragment_one);
+		mFragmentTwo = (PatternTwoFragment) fragmentManager.findFragmentById(R.id.architecture_fragment_two);
 	}
 
 	@Override
@@ -62,6 +63,6 @@ public class ArchitectureActivity extends ActionBarActivity
 
 	@Override
 	public Pattern onCreatePattern(int id, Bundle args) {
-		return new TestPattern();
+		return new TestActivityPattern();
 	}
 }

@@ -9,12 +9,12 @@
 
 	<!-- App-wide strings -->
 
-	<string name="architecture_test">Architecture Test</string>
+	<string name="pattern_test">Pattern Test</string>
 	<string name="login_test">Login Test</string>
 	<string name="other_stuff">Other Stuff</string>
 
     <string-array name="main_menu">
-        <item>@string/architecture_test</item>
+        <item>@string/pattern_test</item>
         <item>@string/login_test</item>
         <item>@string/other_stuff</item>
     </string-array>
@@ -23,11 +23,11 @@
 
 	<!-- Architecture -->
 
-	<string name="architecture_fragment_one_hello_world">Hello fragment one!</string>
-	<string name="architecture_fragment_two_hello_world">Hello fragment two!</string>
+	<string name="pattern_fragment_one_hello_world">Hello fragment one!</string>
+	<string name="pattern_fragment_two_hello_world">Hello fragment two!</string>
 
-	<string name="architecture_activity_title">@string/architecture_test</string>
-	<string name="architecture_test_click_count">Click count: %d</string>
-	<string name="architecture_test_increment_count">Increment Count</string>
+	<string name="pattern_activity_title">@string/pattern_test</string>
+	<string name="pattern_test_click_count">Click count: %d</string>
+	<string name="pattern_test_increment_count">Increment Count</string>
 
 </resources>

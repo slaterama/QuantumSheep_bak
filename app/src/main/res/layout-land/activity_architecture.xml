@@ -4,12 +4,12 @@
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent"
 			  android:orientation="horizontal"
-			  tools:context="com.slaterama.quantumsheep.view.ArchitectureActivity"
+			  tools:context="com.slaterama.quantumsheep.view.PatternActivity"
 			  tools:ignore="MergeRootFrame">
 
 	<fragment
 		android:id="@+id/architecture_fragment_one"
-		android:name="com.slaterama.quantumsheep.view.ArchitectureOneFragment"
+		android:name="com.slaterama.quantumsheep.view.PatternOneFragment"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
@@ -17,7 +17,7 @@
 
 	<fragment
 		android:id="@+id/architecture_fragment_two"
-		android:name="com.slaterama.quantumsheep.view.ArchitectureTwoFragment"
+		android:name="com.slaterama.quantumsheep.view.PatternTwoFragment"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
