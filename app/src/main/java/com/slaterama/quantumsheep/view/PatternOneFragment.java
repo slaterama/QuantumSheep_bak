@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
-import com.slaterama.qslib.alpha.app.pattern.PatternEvent;
 import com.slaterama.qslib.alpha.app.pattern.PatternManager;
+import com.slaterama.qslib.alpha.app.pattern.ViewEvent;
 import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
 
@@ -26,7 +26,7 @@ public class PatternOneFragment extends Fragment
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mPatternManager = PatternManager.newInstance(getActivity());
-		mPattern = mPatternManager.getPattern(PatternActivity.PATTERN_ID);
+		mPattern = mPatternManager.getPattern();
 		// TODO Eventually something like mPatternManager.registerXYZ(PATTERN_ID, this);
 		LogEx.d();
 	}
@@ -41,7 +41,7 @@ public class PatternOneFragment extends Fragment
 
 	@Override
 	public void onClick(View v) {
-		PatternEvent event = new PatternEvent() {};
+		ViewEvent event = new ViewEvent(0);
 		mPattern.sendEvent(event, null);
 		// TODO Eventually something like mPatternManager.sendEvent(event, null);
 	}

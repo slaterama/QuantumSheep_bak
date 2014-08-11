@@ -12,8 +12,6 @@ import com.slaterama.quantumsheep.pattern.TestAppPattern;
 public class QuantumSheepApp extends Application
 		implements PatternCallbacks {
 
-	private static final int APP_PATTERN_ID = 0;
-
 	private PatternManager mPatternManager;
 	private Pattern mAppPattern;
 
@@ -22,7 +20,7 @@ public class QuantumSheepApp extends Application
 		super.onCreate();
 		LogEx.setTagFormat("QuantumSheepTests");
 		mPatternManager = PatternManager.newInstance(this);
-		mAppPattern = mPatternManager.initPattern(APP_PATTERN_ID, null, this);
+		mAppPattern = mPatternManager.initPattern(null, this);
 	}
 
 	@Override

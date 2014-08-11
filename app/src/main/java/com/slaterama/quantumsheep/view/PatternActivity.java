@@ -16,8 +16,6 @@ import com.slaterama.quantumsheep.pattern.TestActivityPattern;
 public class PatternActivity extends ActionBarActivity
 		implements PatternCallbacks {
 
-	public final static int PATTERN_ID = 0;
-
 	private PatternManager mPatternManager;
 	private Pattern mActivityPattern;
 
@@ -30,7 +28,7 @@ public class PatternActivity extends ActionBarActivity
         setContentView(R.layout.activity_pattern);
 
 		mPatternManager = PatternManager.newInstance(this);
-		mActivityPattern = mPatternManager.initPattern(PATTERN_ID, null, this);
+		mActivityPattern = mPatternManager.initPattern(null, this);
 		LogEx.d();
 	}
 
