@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<!-- Boilerplate -->
+    <!-- Boilerplate -->
 
     <string name="app_name">QuantumSheep</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-	<!-- App-wide strings -->
+    <!-- App-wide strings -->
 
-	<string name="pattern_test">Pattern Test</string>
-	<string name="login_test">Login Test</string>
-	<string name="other_stuff">Other Stuff</string>
+    <string name="mvp_pattern_test">MVP Pattern Test</string>
+    <string name="pattern_test">Pattern Test</string>
+    <string name="login_test">Login Test</string>
+    <string name="other_stuff">Other Stuff</string>
 
     <string-array name="main_menu">
+        <item>@string/mvp_pattern_test</item>
         <item>@string/pattern_test</item>
         <item>@string/login_test</item>
         <item>@string/other_stuff</item>
@@ -21,13 +23,14 @@
 
     <string name="toast_not_yet_supported">This feature is not yet supported.</string>
 
-	<!-- Architecture -->
+    <!-- Architecture -->
 
-	<string name="pattern_fragment_one_hello_world">Hello fragment one!</string>
-	<string name="pattern_fragment_two_hello_world">Hello fragment two!</string>
-
-	<string name="pattern_activity_title">@string/pattern_test</string>
-	<string name="pattern_test_click_count">Click count: %d</string>
-	<string name="pattern_test_increment_count">Increment Count</string>
+    <string name="pattern_fragment_one_hello_world">Hello fragment one!</string>
+    <string name="pattern_fragment_two_hello_world">Hello fragment two!</string>
+    <string name="pattern_activity_title">@string/pattern_test</string>
+    <string name="pattern_test_click_count">Click count: %d</string>
+    <string name="pattern_test_increment_count">Increment Count</string>
+    <string name="title_activity_mvp_test">MVP Test</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -8,7 +8,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <activity
             android:name=".view.MainActivity"
             android:label="@string/app_name" >
@@ -18,17 +17,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".view.PatternActivity"
+            android:name=".view.old.PatternActivity"
             android:label="@string/pattern_activity_title" >
-			<intent-filter>
-				<action android:name="com.slaterama.quantumsheep.action.ARCHITECTURE" />
+            <intent-filter>
+                <action android:name="com.slaterama.quantumsheep.action.ARCHITECTURE" />
 
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-
+        <activity
+            android:name=".view.mvptest.MvpTestActivity"
+            android:label="@string/title_activity_mvp_test" >
+        </activity>
     </application>
 
 </manifest>

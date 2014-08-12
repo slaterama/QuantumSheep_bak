@@ -3,7 +3,7 @@ package com.slaterama.quantumsheep.model;
 import com.slaterama.qslib.alpha.app.pattern.ModelEvent;
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
 import com.slaterama.qslib.alpha.app.pattern.PatternEvent;
-import com.slaterama.quantumsheep.pattern.TestActivityPattern;
+import com.slaterama.quantumsheep.pattern_old.TestActivityPattern;
 
 public class TestActivityPatternModel {
 

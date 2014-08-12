@@ -1,4 +1,4 @@
-package com.slaterama.quantumsheep.pattern;
+package com.slaterama.quantumsheep.pattern_old;
 
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
 import com.slaterama.qslib.alpha.app.pattern.PatternEvent;

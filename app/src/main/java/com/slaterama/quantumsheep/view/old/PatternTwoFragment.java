@@ -1,4 +1,4 @@
-package com.slaterama.quantumsheep.view;
+package com.slaterama.quantumsheep.view.old;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,10 +12,10 @@ import android.widget.TextView;
 import com.slaterama.qslib.alpha.app.pattern.ViewEvent;
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
 import com.slaterama.quantumsheep.R;
-import com.slaterama.quantumsheep.pattern.TestActivityPattern;
-import com.slaterama.quantumsheep.pattern.TestPatternListener;
+import com.slaterama.quantumsheep.pattern_old.TestActivityPattern;
+import com.slaterama.quantumsheep.pattern_old.TestPatternListener;
 
-public class PatternOneFragment extends Fragment
+public class PatternTwoFragment extends Fragment
 		implements View.OnClickListener,
 		TestPatternListener {
 
@@ -34,7 +34,7 @@ public class PatternOneFragment extends Fragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_pattern_one, container, false);
+		return inflater.inflate(R.layout.fragment_pattern_two, container, false);
 	}
 
 	@Override

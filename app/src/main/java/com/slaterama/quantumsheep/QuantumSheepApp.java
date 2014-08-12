@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
 import com.slaterama.qslib.utils.LogEx;
-import com.slaterama.quantumsheep.pattern.TestAppPattern;
+import com.slaterama.quantumsheep.pattern_old.TestAppPattern;
 
 public class QuantumSheepApp extends Application {
 

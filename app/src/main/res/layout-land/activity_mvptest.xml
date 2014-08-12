@@ -8,19 +8,19 @@
 			  tools:ignore="MergeRootFrame">
 
 	<fragment
-		android:id="@+id/architecture_fragment_one"
-		android:name="com.slaterama.quantumsheep.view.old.PatternOneFragment"
+		android:id="@+id/mvptest_one_fragment"
+		android:name="com.slaterama.quantumsheep.view.mvptest.MvpTestOneFragment"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		tools:layout="@layout/fragment_architecture_one"/>
+		tools:layout="@layout/fragment_mvptest_one"/>
 
 	<fragment
-		android:id="@+id/architecture_fragment_two"
-		android:name="com.slaterama.quantumsheep.view.old.PatternTwoFragment"
+		android:id="@+id/mvptest_two_fragment"
+		android:name="com.slaterama.quantumsheep.view.mvptest.MvpTestTwoFragment"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		tools:layout="@layout/fragment_architecture_two"/>
+		tools:layout="@layout/fragment_mvptest_two"/>
 
 </LinearLayout>

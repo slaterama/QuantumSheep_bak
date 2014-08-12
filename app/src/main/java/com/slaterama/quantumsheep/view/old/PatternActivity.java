@@ -1,4 +1,4 @@
-package com.slaterama.quantumsheep.view;
+package com.slaterama.quantumsheep.view.old;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +10,7 @@ import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
 import com.slaterama.qslib.alpha.support.v7.app.PatternActionBarActivity;
 import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
-import com.slaterama.quantumsheep.pattern.TestActivityPattern;
+import com.slaterama.quantumsheep.pattern_old.TestActivityPattern;
 
 public class PatternActivity extends PatternActionBarActivity
 		implements PatternManager.PatternCallbacks {

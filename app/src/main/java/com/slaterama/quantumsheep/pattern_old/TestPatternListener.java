@@ -1,4 +1,4 @@
-package com.slaterama.quantumsheep.pattern;
+package com.slaterama.quantumsheep.pattern_old;
 
 public interface TestPatternListener {
 

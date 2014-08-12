@@ -25,4 +25,5 @@ dependencies {
 	compile project(':qslib-alpha')
 	compile project(':qslib-beta')
 	compile 'com.android.support:appcompat-v7:20.0.0'
+	compile 'com.android.support:support-v4:20.0.0'
 }
