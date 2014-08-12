@@ -8,7 +8,7 @@ public class TestActivityPattern implements Pattern {
 
 	public TestActivityPattern() {
 		super();
-		LogEx.d();
+//		LogEx.d();
 	}
 
 	@Override

@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
-import com.slaterama.qslib.alpha.app.pattern.PatternManager;
 import com.slaterama.qslib.alpha.app.pattern.ViewEvent;
-import com.slaterama.qslib.utils.LogEx;
+import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
 import com.slaterama.quantumsheep.R;
 
 public class PatternTwoFragment extends Fragment
@@ -25,11 +24,10 @@ public class PatternTwoFragment extends Fragment
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mPatternManager = PatternManager.newInstance(getActivity());
-		mPattern = mPatternManager.getPattern();
-		// TODO TestPatternPresenter mPresenter = new TestPatternPresenter(this);
-		// TODO mPatternManager.registerView(mPresenter);
-		LogEx.d();
+		mPatternManager = PatternManager.get(getActivity().getSupportFragmentManager());
+		mPattern = mPatternManager.getPattern(PatternActivity.PATTERN_ID);
+		// TODO Eventually something like mPatternManager.registerXYZ(PATTERN_ID, this);
+//		LogEx.d();
 	}
 
 	@Override
@@ -44,6 +42,6 @@ public class PatternTwoFragment extends Fragment
 	public void onClick(View v) {
 		ViewEvent event = new ViewEvent(0);
 		mPattern.sendEvent(event, null);
-		// TODO Eventually something like mPresenter.sendEvent(event, null);
+		// TODO Eventually something like mPatternManager.sendEvent(event, null);
 	}
 }
