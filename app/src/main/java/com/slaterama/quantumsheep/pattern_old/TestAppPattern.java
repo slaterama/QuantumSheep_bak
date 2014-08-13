@@ -2,6 +2,7 @@ package com.slaterama.quantumsheep.pattern_old;
 
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
 import com.slaterama.qslib.alpha.app.pattern.PatternEvent;
+import com.slaterama.qslib.alpha.app.pattern.Presenter;
 import com.slaterama.qslib.utils.LogEx;
 
 public class TestAppPattern implements Pattern {
@@ -14,5 +15,15 @@ public class TestAppPattern implements Pattern {
 	@Override
 	public void sendEvent(PatternEvent event, Object data) {
 		LogEx.d(String.valueOf(this));
+	}
+
+	@Override
+	public void registerPresenter(Presenter presenter) {
+
+	}
+
+	@Override
+	public void unregisterPresenter(Presenter presenter) {
+
 	}
 }

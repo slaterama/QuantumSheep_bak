@@ -84,7 +84,19 @@ public class MvpTestTwoFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		mPatternManager = PatternManager.from(getActivity());
 		mMvpTestPattern = (MvpTestPattern) mPatternManager.getPattern(MvpTestActivity.TEST_PATTERN_ID);
-		mTestTwoPresenter = new TestTwoPresenter(mMvpTestPattern, mTestTwoListener);
+		mTestTwoPresenter = new TestTwoPresenter(mTestTwoListener);
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		mMvpTestPattern.registerPresenter(mTestTwoPresenter);
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		mMvpTestPattern.unregisterPresenter(mTestTwoPresenter);
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event

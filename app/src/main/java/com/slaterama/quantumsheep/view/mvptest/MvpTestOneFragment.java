@@ -41,7 +41,7 @@ public class MvpTestOneFragment extends Fragment {
 
 	private PatternManager mPatternManager;
 	private MvpTestPattern mMvpTestPattern;
-	private TestOnePresenter mTestTwoPresenter;
+	private TestOnePresenter mTestOnePresenter;
 
     /**
      * Use this factory method to create a new instance of
@@ -86,7 +86,19 @@ public class MvpTestOneFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		mPatternManager = PatternManager.from(getActivity());
 		mMvpTestPattern = (MvpTestPattern) mPatternManager.getPattern(MvpTestActivity.TEST_PATTERN_ID);
-		mTestTwoPresenter = new TestOnePresenter(mMvpTestPattern, mTestOneListener);
+		mTestOnePresenter = new TestOnePresenter(mTestOneListener);
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		mMvpTestPattern.registerPresenter(mTestOnePresenter);
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		mMvpTestPattern.unregisterPresenter(mTestOnePresenter);
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event

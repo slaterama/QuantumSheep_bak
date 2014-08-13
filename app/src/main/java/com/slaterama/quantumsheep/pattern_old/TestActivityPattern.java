@@ -3,6 +3,7 @@ package com.slaterama.quantumsheep.pattern_old;
 import com.slaterama.qslib.alpha.app.pattern.ModelEvent;
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
 import com.slaterama.qslib.alpha.app.pattern.PatternEvent;
+import com.slaterama.qslib.alpha.app.pattern.Presenter;
 import com.slaterama.qslib.alpha.app.pattern.ViewEvent;
 import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.model.TestActivityPatternModel;
@@ -59,5 +60,15 @@ public class TestActivityPattern implements Pattern {
 	public void unregisterListener(TestPatternListener listener) {
 		if (mListenerMap != null)
 			mListenerMap.remove(listener);
+	}
+
+	@Override
+	public void registerPresenter(Presenter presenter) {
+
+	}
+
+	@Override
+	public void unregisterPresenter(Presenter presenter) {
+
 	}
 }

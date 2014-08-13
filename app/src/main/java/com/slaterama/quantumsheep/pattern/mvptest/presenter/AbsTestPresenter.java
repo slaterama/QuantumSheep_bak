@@ -1,16 +1,17 @@
 package com.slaterama.quantumsheep.pattern.mvptest.presenter;
 
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
+import com.slaterama.qslib.alpha.app.pattern.Presenter;
 import com.slaterama.quantumsheep.pattern.mvptest.view.AbsTestListener;
 
-public abstract class AbsTestPresenter {
+public abstract class AbsTestPresenter
+		implements Presenter {
 
 	private Pattern mPattern;
 	private AbsTestListener mListener;
 
-	public AbsTestPresenter(Pattern pattern, AbsTestListener listener) {
+	public AbsTestPresenter(AbsTestListener listener) {
 		super();
-		mPattern = pattern;
 		mListener = listener;
 	}
 
@@ -20,5 +21,13 @@ public abstract class AbsTestPresenter {
 
 	public void setListener(AbsTestListener listener) {
 		mListener = listener;
+	}
+
+	public Pattern getPattern() {
+		return mPattern;
+	}
+
+	public void setPattern(Pattern pattern) {
+		mPattern = pattern;
 	}
 }
