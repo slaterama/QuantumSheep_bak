@@ -5,20 +5,32 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.slaterama.qslib.alpha.app.pattern.Pattern;
+import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
+import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
+import com.slaterama.quantumsheep.pattern.mvptest.MvpTestPattern;
 
 public class MvpTestActivity extends ActionBarActivity
-		implements MvpTestOneFragment.OnFragmentInteractionListener,
+		implements PatternManager.PatternCallbacks,
+		MvpTestOneFragment.OnFragmentInteractionListener,
 		MvpTestTwoFragment.OnFragmentInteractionListener {
 
-	// TODO private MvpTestPattern mMvpTestPattern;
+	public static final int TEST_PATTERN_ID = 0;
+
+	private PatternManager mPatternManager;
+	private MvpTestPattern mMvpTestPattern;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mvptest);
 
-		// TODO mMvpTestPattern = ...
+		mPatternManager = PatternManager.from(this);
+		mMvpTestPattern = (MvpTestPattern) mPatternManager.initPattern(TEST_PATTERN_ID, null, this);
+		LogEx.d(String.valueOf(mPatternManager));
+		LogEx.d(String.valueOf(mMvpTestPattern));
     }
 
     @Override
@@ -39,6 +51,11 @@ public class MvpTestActivity extends ActionBarActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
+	@Override
+	public Pattern onCreatePattern(int id, Bundle args) {
+		return new MvpTestPattern();
+	}
 
 	@Override
 	public void onFragmentInteraction(Uri uri) {

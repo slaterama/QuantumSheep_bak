@@ -3,12 +3,15 @@ package com.slaterama.quantumsheep.view.mvptest;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
 import com.slaterama.quantumsheep.R;
+import com.slaterama.quantumsheep.pattern.mvptest.MvpTestPattern;
 import com.slaterama.quantumsheep.pattern.mvptest.presenter.TestOnePresenter;
 import com.slaterama.quantumsheep.pattern.mvptest.view.TestOneListener;
 
@@ -36,6 +39,8 @@ public class MvpTestOneFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+	private PatternManager mPatternManager;
+	private MvpTestPattern mMvpTestPattern;
 	private TestOnePresenter mTestTwoPresenter;
 
     /**
@@ -67,9 +72,6 @@ public class MvpTestOneFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-		// TODO mMvpTestPattern = ...
-		mTestTwoPresenter = new TestOnePresenter(mTestOneListener);
     }
 
     @Override
@@ -79,7 +81,15 @@ public class MvpTestOneFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_mvptest_one, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		mPatternManager = PatternManager.from(getActivity());
+		mMvpTestPattern = (MvpTestPattern) mPatternManager.getPattern(MvpTestActivity.TEST_PATTERN_ID);
+		mTestTwoPresenter = new TestOnePresenter(mMvpTestPattern, mTestOneListener);
+	}
+
+	// TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

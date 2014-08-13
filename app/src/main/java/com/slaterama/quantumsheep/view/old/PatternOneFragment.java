@@ -28,7 +28,7 @@ public class PatternOneFragment extends Fragment
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mPatternManager = PatternManager.get(getActivity().getSupportFragmentManager());
+		mPatternManager = PatternManager.from(getActivity());
 		mPattern = (TestActivityPattern) mPatternManager.getPattern(PatternActivity.PATTERN_ID);
 	}
 

@@ -2,17 +2,17 @@ package com.slaterama.quantumsheep.view.old;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
-import com.slaterama.qslib.alpha.support.v7.app.PatternActionBarActivity;
 import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
 import com.slaterama.quantumsheep.pattern_old.TestActivityPattern;
 
-public class PatternActivity extends PatternActionBarActivity
+public class PatternActivity extends ActionBarActivity
 		implements PatternManager.PatternCallbacks {
 
 	public static final int PATTERN_ID = 0;
@@ -28,7 +28,7 @@ public class PatternActivity extends PatternActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pattern);
 
-		mPatternManager = getPatternManager();
+		mPatternManager = PatternManager.from(this);
 		mActivityPattern = mPatternManager.initPattern(PATTERN_ID, null, this);
 		LogEx.d(String.format("mPatternManager=%s", mPatternManager));
 		LogEx.d(String.format("mActivityPattern=%s", mActivityPattern));
