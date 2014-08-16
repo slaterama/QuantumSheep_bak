@@ -8,7 +8,6 @@ import android.view.MenuItem;
 
 import com.slaterama.qslib.alpha.app.pattern.Pattern;
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
-import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
 import com.slaterama.quantumsheep.pattern.mvptest.MvpTestPattern;
 
@@ -29,8 +28,6 @@ public class MvpTestActivity extends ActionBarActivity
 
 		mPatternManager = PatternManager.from(this);
 		mMvpTestPattern = (MvpTestPattern) mPatternManager.initPattern(TEST_PATTERN_ID, null, this);
-		LogEx.d(String.valueOf(mPatternManager));
-		LogEx.d(String.valueOf(mMvpTestPattern));
     }
 
     @Override
