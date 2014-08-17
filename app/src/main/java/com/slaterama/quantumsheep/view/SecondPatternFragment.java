@@ -1,4 +1,4 @@
-package com.slaterama.quantumsheep.view.mvptest;
+package com.slaterama.quantumsheep.view;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -11,22 +11,17 @@ import android.view.ViewGroup;
 
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
 import com.slaterama.quantumsheep.R;
-import com.slaterama.quantumsheep.pattern.mvptest.MvpTestPattern;
-import com.slaterama.quantumsheep.pattern.mvptest.presenter.TestTwoPresenter;
-import com.slaterama.quantumsheep.pattern.mvptest.view.TestTwoListener;
-
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MvpTestTwoFragment.OnFragmentInteractionListener} interface
+ * {@link SecondPatternFragment.OnSecondFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MvpTestTwoFragment#newInstance} factory method to
+ * Use the {@link SecondPatternFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
  */
-public class MvpTestTwoFragment extends Fragment {
+public class SecondPatternFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,11 +31,7 @@ public class MvpTestTwoFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
-
-	private PatternManager mPatternManager;
-	private MvpTestPattern mMvpTestPattern;
-	private TestTwoPresenter mTestTwoPresenter;
+    private OnSecondFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -48,22 +39,34 @@ public class MvpTestTwoFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MvpTestTwoFragment.
+     * @return A new instance of fragment SecondPatternFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MvpTestTwoFragment newInstance(String param1, String param2) {
-        MvpTestTwoFragment fragment = new MvpTestTwoFragment();
+    public static SecondPatternFragment newInstance(String param1, String param2) {
+        SecondPatternFragment fragment = new SecondPatternFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
-    public MvpTestTwoFragment() {
+
+    public SecondPatternFragment() {
         // Required empty public constructor
     }
 
-    @Override
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			mListener = (OnSecondFragmentInteractionListener) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString()
+					+ " must implement OnSecondFragmentInteractionListener");
+		}
+	}
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -76,87 +79,30 @@ public class MvpTestTwoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mvptest_two, container, false);
+        return inflater.inflate(R.layout.fragment_second_pattern, container, false);
     }
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mPatternManager = PatternManager.from(getActivity());
-		mMvpTestPattern = (MvpTestPattern) mPatternManager.getPattern(MvpTestActivity.TEST_PATTERN_ID);
-		mTestTwoPresenter = new TestTwoPresenter(mTestTwoListener);
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-		mMvpTestPattern.registerPresenter(mTestTwoPresenter);
-	}
-
-	@Override
-	public void onStop() {
-		super.onStop();
-		mMvpTestPattern.unregisterPresenter(mTestTwoPresenter);
+		PatternManager patternManager = PatternManager.newInstance(getActivity());
+		// TODO Register a presenter or something
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onSecondFragmentInteraction(uri);
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		mListener = null;
+	}
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-	private TestTwoListener mTestTwoListener = new TestTwoListener() {
-
-		@Override
-		public void setUsername(String name) {
-
-		}
-
-		@Override
-		public void setClickCount(int clickCount) {
-
-		}
-
-		@Override
-		public void setFirstName(String firstName) {
-
-		}
-
-		@Override
-		public void setLastName(String lastName) {
-
-		}
-
-		@Override
-		public void setCreatedAt(Date createdAt) {
-
-		}
-
-		@Override
-		public void setUpdatedAt(Date updatedAt) {
-
-		}
-	};
-
-    /**
+	/**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -166,9 +112,9 @@ public class MvpTestTwoFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnSecondFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onSecondFragmentInteraction(Uri uri);
     }
 
 }

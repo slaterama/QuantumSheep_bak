@@ -11,8 +11,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.slaterama.quantumsheep.R;
-import com.slaterama.quantumsheep.view.mvptest.MvpTestActivity;
-import com.slaterama.quantumsheep.view.old.PatternActivity;
 
 public class MainActivity extends ListActivity {
 
@@ -49,9 +47,6 @@ public class MainActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		switch (position) {
 			case 0:
-				startActivity(new Intent(this, MvpTestActivity.class));
-				break;
-			case 1:
 				startActivity(new Intent(this, PatternActivity.class));
 				break;
 			default:
