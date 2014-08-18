@@ -10,20 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
-import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
-import com.slaterama.quantumsheep.pattern.MyPattern;
+import com.slaterama.quantumsheep.pattern.MyMvp;
+import com.slaterama.quantumsheep.pattern.presenter.EmployeePresenterOne;
+import com.slaterama.quantumsheep.pattern.presenter.EmployeePresenterOne.EmployeeViewOne;
+
+import static com.slaterama.quantumsheep.view.MvpActivity.PATTERN_ID;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FirstPatternFragment.OnFirstFragmentInteractionListener} interface
+ * {@link MvpFragmentOne.OnFirstFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FirstPatternFragment#newInstance} factory method to
+ * Use the {@link MvpFragmentOne#newInstance} factory method to
  * create an instance of this fragment.
  *
  */
-public class FirstPatternFragment extends Fragment {
+public class MvpFragmentOne extends Fragment
+		implements EmployeeViewOne {
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
@@ -38,8 +42,8 @@ public class FirstPatternFragment extends Fragment {
 	 * @return A new instance of fragment FirstPatternFragment.
 	 */
 	// TODO: Rename and change types and number of parameters
-	public static FirstPatternFragment newInstance(String param1, String param2) {
-		FirstPatternFragment fragment = new FirstPatternFragment();
+	public static MvpFragmentOne newInstance(String param1, String param2) {
+		MvpFragmentOne fragment = new MvpFragmentOne();
 		Bundle args = new Bundle();
 		args.putString(ARG_PARAM1, param1);
 		args.putString(ARG_PARAM2, param2);
@@ -53,10 +57,10 @@ public class FirstPatternFragment extends Fragment {
 
 	private OnFirstFragmentInteractionListener mListener;
 
-	private PatternManager mPatternManager;
-	private MyPattern mMyPattern;
+	private MyMvp mMyMvp;
+	private EmployeePresenterOne mPresenter;
 
-	public FirstPatternFragment() {
+	public MvpFragmentOne() {
 		// Required empty public constructor
 	}
 
@@ -84,18 +88,29 @@ public class FirstPatternFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_first_pattern, container, false);
+		return inflater.inflate(R.layout.fragment_mvp_one, container, false);
 	}
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		mMyMvp = (MyMvp) PatternManager.newInstance(getActivity()).getPattern(PATTERN_ID);
+		if (mMyMvp == null)
+			throw new IllegalStateException(String.format("Expecting %s pattern with ID %d",
+					MyMvp.class.getSimpleName(), PATTERN_ID));
+		mPresenter = new EmployeePresenterOne(this);
+	}
 
-		mPatternManager = PatternManager.newInstance(getActivity());
-		mMyPattern = (MyPattern) mPatternManager.getPattern(PatternActivity.PATTERN_ID);
-		LogEx.d(String.format("mMyPattern=%s", mMyPattern));
+	@Override
+	public void onStart() {
+		super.onStart();
+		mMyMvp.registerPresenter(mPresenter);
+	}
 
-		// TODO Register a presenter or something
+	@Override
+	public void onStop() {
+		super.onStop();
+		mMyMvp.unregisterPresenter(mPresenter);
 	}
 
 	@Override

@@ -20,8 +20,8 @@
         </activity>
 
         <activity
-            android:name=".view.PatternActivity"
-            android:label="@string/title_activity_pattern" >
+            android:name=".view.MvpActivity"
+            android:label="@string/title_activity_mvp_pattern" >
         </activity>
 
     </application>

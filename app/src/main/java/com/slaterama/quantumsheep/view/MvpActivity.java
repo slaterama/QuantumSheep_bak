@@ -10,25 +10,25 @@ import com.slaterama.qslib.alpha.app.pattern.Pattern;
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
 import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
-import com.slaterama.quantumsheep.pattern.MyPattern;
+import com.slaterama.quantumsheep.pattern.MyMvp;
 
-public class PatternActivity extends ActionBarActivity
-		implements FirstPatternFragment.OnFirstFragmentInteractionListener,
-		SecondPatternFragment.OnSecondFragmentInteractionListener,
+public class MvpActivity extends ActionBarActivity
+		implements MvpFragmentOne.OnFirstFragmentInteractionListener,
+		MvpFragmentTwo.OnSecondFragmentInteractionListener,
 		PatternManager.PatternCallbacks {
 
 	public final static int PATTERN_ID = 0;
 
 	private PatternManager mPatternManager;
-	private MyPattern mMyPattern;
+	private MyMvp mMyMvp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pattern);
 		mPatternManager = PatternManager.newInstance(this);
-		mMyPattern = (MyPattern) mPatternManager.initPattern(PATTERN_ID, null, this);
-		LogEx.d(String.format("mMyPattern=%s", mMyPattern));
+		mMyMvp = (MyMvp) mPatternManager.initPattern(PATTERN_ID, null, this);
+		LogEx.d(String.format("mMyMvp=%s", mMyMvp));
 	}
 
 	@Override
@@ -67,6 +67,6 @@ public class PatternActivity extends ActionBarActivity
 
 	@Override
 	public Pattern onCreatePattern(int id, Bundle args) {
-		return new MyPattern();
+		return new MyMvp();
 	}
 }

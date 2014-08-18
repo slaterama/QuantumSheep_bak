@@ -8,12 +8,12 @@
 
     <!-- App-wide strings -->
 
-    <string name="pattern_test">Pattern Test</string>
+    <string name="mvp_pattern_test">MVP Pattern Test</string>
     <string name="login_test">Login Test</string>
     <string name="other_stuff">Other Stuff</string>
 
     <string-array name="main_menu">
-        <item>@string/pattern_test</item>
+        <item>@string/mvp_pattern_test</item>
         <item>@string/login_test</item>
         <item>@string/other_stuff</item>
     </string-array>
@@ -22,7 +22,7 @@
 
 	<!-- Pattern strings -->
 
-    <string name="title_activity_pattern">@string/pattern_test</string>
+    <string name="title_activity_mvp_pattern">@string/mvp_pattern_test</string>
 	<string name="hello_first_fragment">Hello, first fragment!</string>
 	<string name="hello_second_fragment">Hello, second fragment!</string>
 	<string name="hello_third_fragment">Hello, third fragment!</string>
