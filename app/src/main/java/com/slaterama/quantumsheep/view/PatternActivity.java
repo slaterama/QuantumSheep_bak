@@ -19,13 +19,16 @@ public class PatternActivity extends ActionBarActivity
 
 	public final static int PATTERN_ID = 0;
 
+	private PatternManager mPatternManager;
+	private MyPattern mMyPattern;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pattern);
-		LogEx.d();
-		PatternManager patternManager = PatternManager.newInstance(this);
-		// patternManager.initPattern(PATTERN_ID, null, this);
+		mPatternManager = PatternManager.newInstance(this);
+		mMyPattern = (MyPattern) mPatternManager.initPattern(PATTERN_ID, null, this);
+		LogEx.d(String.format("mMyPattern=%s", mMyPattern));
 	}
 
 	@Override

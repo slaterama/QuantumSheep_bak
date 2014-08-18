@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
+import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
+import com.slaterama.quantumsheep.pattern.MyPattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,13 +29,7 @@ public class SecondPatternFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnSecondFragmentInteractionListener mListener;
-
-    /**
+	/**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
@@ -51,7 +47,16 @@ public class SecondPatternFragment extends Fragment {
         return fragment;
     }
 
-    public SecondPatternFragment() {
+	// TODO: Rename and change types of parameters
+	private String mParam1;
+	private String mParam2;
+
+	private OnSecondFragmentInteractionListener mListener;
+
+	private PatternManager mPatternManager;
+	private MyPattern mMyPattern;
+
+	public SecondPatternFragment() {
         // Required empty public constructor
     }
 
@@ -85,7 +90,11 @@ public class SecondPatternFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		PatternManager patternManager = PatternManager.newInstance(getActivity());
+
+		mPatternManager = PatternManager.newInstance(getActivity());
+		mMyPattern = (MyPattern) mPatternManager.getPattern(PatternActivity.PATTERN_ID);
+		LogEx.d(String.format("mMyPattern=%s", mMyPattern));
+
 		// TODO Register a presenter or something
 	}
 

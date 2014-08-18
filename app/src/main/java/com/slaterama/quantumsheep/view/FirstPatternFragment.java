@@ -5,15 +5,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
-import com.slaterama.qslib.alpha.support.v4.app.RetainedInstanceManager;
 import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
+import com.slaterama.quantumsheep.pattern.MyPattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,15 +28,6 @@ public class FirstPatternFragment extends Fragment {
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
 	private static final String ARG_PARAM2 = "param2";
-
-	// TODO: Rename and change types of parameters
-	private String mParam1;
-	private String mParam2;
-
-	private OnFirstFragmentInteractionListener mListener;
-
-	private RetainedInstanceManager mRetainedInstanceManager;
-	private Object mObject;
 
 	/**
 	 * Use this factory method to create a new instance of
@@ -56,6 +46,15 @@ public class FirstPatternFragment extends Fragment {
 		fragment.setArguments(args);
 		return fragment;
 	}
+
+	// TODO: Rename and change types of parameters
+	private String mParam1;
+	private String mParam2;
+
+	private OnFirstFragmentInteractionListener mListener;
+
+	private PatternManager mPatternManager;
+	private MyPattern mMyPattern;
 
 	public FirstPatternFragment() {
 		// Required empty public constructor
@@ -79,10 +78,6 @@ public class FirstPatternFragment extends Fragment {
 			mParam1 = getArguments().getString(ARG_PARAM1);
 			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
-
-		// TODO Causes my own exception -- how to handle?
-		PatternManager patternManager = PatternManager.newInstance(getActivity());
-		LogEx.d();
 	}
 
 	@Override
@@ -96,24 +91,11 @@ public class FirstPatternFragment extends Fragment {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		FragmentActivity activity = getActivity();
-		PatternManager patternManager = PatternManager.newInstance(activity);
+		mPatternManager = PatternManager.newInstance(getActivity());
+		mMyPattern = (MyPattern) mPatternManager.getPattern(PatternActivity.PATTERN_ID);
+		LogEx.d(String.format("mMyPattern=%s", mMyPattern));
 
-		//LogEx.d();
-
-		/*
-		PatternManager patternManager = PatternManager.newInstance(getActivity());
-
-		mRetainedInstanceManager = RetainedInstanceManager.newInstance(this);
-		if (mRetainedInstanceManager.containsKey("object")) {
-			mObject = mRetainedInstanceManager.get("object");
-		} else {
-			mObject = new Object();
-			mRetainedInstanceManager.put("object", mObject);
-		}
-		// LogEx.d(String.format("mObject=%s", mObject));
 		// TODO Register a presenter or something
-		*/
 	}
 
 	@Override
