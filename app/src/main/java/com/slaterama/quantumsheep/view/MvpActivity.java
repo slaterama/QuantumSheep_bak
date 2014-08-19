@@ -25,7 +25,7 @@ public class MvpActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pattern);
+        setContentView(R.layout.activity_mvp);
 		mPatternManager = PatternManager.newInstance(this);
 		mMyMvp = (MyMvp) mPatternManager.initPattern(PATTERN_ID, null, this);
 		LogEx.d(String.format("mMyMvp=%s", mMyMvp));

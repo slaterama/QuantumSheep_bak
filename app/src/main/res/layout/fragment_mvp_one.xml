@@ -1,16 +1,124 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.slaterama.quantumsheep.view.MvpFragmentOne">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:paddingLeft="@dimen/activity_horizontal_margin"
+			  android:paddingRight="@dimen/activity_horizontal_margin"
+			  android:paddingTop="@dimen/activity_vertical_margin"
+			  android:paddingBottom="@dimen/activity_vertical_margin"
+			  android:orientation="vertical"
+			  tools:context="com.slaterama.quantumsheep.view.MvpFragmentOne">
 
-    <TextView
-        android:text="@string/hello_first_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
 
-</RelativeLayout>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/mvp_fragment_one_user_id_label"/>
+
+		<TextView
+			android:id="@+id/mvp_fragment_one_user_id"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/activity_horizontal_margin"
+			android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:text="@string/mvp_fragment_one_user_first_name_label"/>
+
+	<EditText
+		android:id="@+id/mvp_fragment_one_first_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:text="@string/mvp_fragment_one_user_last_name_label"/>
+
+	<EditText
+		android:id="@+id/mvp_fragment_one_last_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:text="@string/mvp_fragment_one_user_username_label"/>
+
+	<EditText
+		android:id="@+id/mvp_fragment_one_username"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"/>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:orientation="horizontal">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/mvp_fragment_one_user_status_label"/>
+
+		<CheckBox
+			android:id="@+id/mvp_fragment_one_active"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/activity_horizontal_margin"
+			android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:orientation="horizontal">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/mvp_fragment_one_user_created_at_label"/>
+
+		<TextView
+			android:id="@+id/mvp_fragment_one_created_at"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/activity_horizontal_margin"
+			android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:orientation="horizontal">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/mvp_fragment_one_user_updated_at_label"/>
+
+		<TextView
+			android:id="@+id/mvp_fragment_one_updated_at"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/activity_horizontal_margin"
+			android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+	</LinearLayout>
+
+</LinearLayout>

@@ -27,4 +27,12 @@
 	<string name="hello_second_fragment">Hello, second fragment!</string>
 	<string name="hello_third_fragment">Hello, third fragment!</string>
 
+	<string name="mvp_fragment_one_user_id_label">Id:</string>
+	<string name="mvp_fragment_one_user_first_name_label">First Name:</string>
+	<string name="mvp_fragment_one_user_last_name_label">Last Name:</string>
+	<string name="mvp_fragment_one_user_username_label">Username:</string>
+	<string name="mvp_fragment_one_user_status_label">Active:</string>
+	<string name="mvp_fragment_one_user_created_at_label">Created At:</string>
+	<string name="mvp_fragment_one_user_updated_at_label">Updated At:</string>
+
 </resources>
