@@ -6,23 +6,24 @@ import com.slaterama.qslib.alpha.app.pattern.Model;
 import com.slaterama.qslib.alpha.app.pattern.mvp.Presenter;
 import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.pattern.model.MyModel;
-import com.slaterama.quantumsheep.pattern.model.UserVO;
+import com.slaterama.quantumsheep.pattern.model.User;
 
 import java.util.Date;
 
 public class UserPresenterTwo extends Presenter {
 
-	private UserVO mUser; // TODO When to set this?
+	private User mUser; // TODO When to set this?
 
 	public UserPresenterTwo(UserViewTwo view) {
 		super(view);
 	}
 
+	/*
 	@Override
 	public void update(Model model, Model.ModelEvent event) {
 		String action = event.getAction();
 		if (TextUtils.equals(action, MyModel.USER_LOADED)) {
-			mUser = (UserVO) event.getValue();
+			mUser = (User) event.getValue();
 			UserViewTwo view = ((UserViewTwo) mView);
 			view.setFullName(String.format("%s %s", mUser.getFirstName(), mUser.getLastName()));
 			view.setStatus(mUser.isActive());
@@ -56,6 +57,7 @@ public class UserPresenterTwo extends Presenter {
 		LogEx.d();
 		((MyModel) mModel).loadUser(id); // TODO This object could do it rather than the model?
 	}
+	*/
 
 	public static interface UserViewTwo extends IView {
 		public void setFullName(String fullName);

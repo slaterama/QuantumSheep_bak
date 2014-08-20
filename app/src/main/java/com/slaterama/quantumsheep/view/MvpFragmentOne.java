@@ -91,7 +91,7 @@ public class MvpFragmentOne extends Fragment
 					MyMvp.class.getSimpleName(), PATTERN_ID));
 		mPresenter = new UserPresenterOne(this);
 		mMyMvp.registerPresenter(mPresenter);
-		mPresenter.loadUser(mUserId);
+		// mPresenter.loadUser(mUserId);
 	}
 
 	@Override
