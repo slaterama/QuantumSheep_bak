@@ -13,9 +13,7 @@ import com.slaterama.quantumsheep.R;
 import com.slaterama.quantumsheep.pattern.MyMvp;
 
 public class MvpActivity extends ActionBarActivity
-		implements MvpFragmentOne.OnFirstFragmentInteractionListener,
-		MvpFragmentTwo.OnSecondFragmentInteractionListener,
-		PatternManager.PatternCallbacks {
+		implements PatternManager.PatternCallbacks {
 
 	public final static int PATTERN_ID = 0;
 
@@ -54,16 +52,6 @@ public class MvpActivity extends ActionBarActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
-	@Override
-	public void onFirstFragmentInteraction(Uri uri) {
-
-	}
-
-	@Override
-	public void onSecondFragmentInteraction(Uri uri) {
-
-	}
 
 	@Override
 	public Pattern onCreatePattern(int id, Bundle args) {

@@ -1,12 +1,11 @@
 package com.slaterama.quantumsheep.view;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
+import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
 import com.slaterama.quantumsheep.pattern.MyMvp;
 import com.slaterama.quantumsheep.pattern.presenter.UserPresenterOne;
@@ -29,31 +29,11 @@ import static com.slaterama.quantumsheep.view.MvpActivity.PATTERN_ID;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MvpFragmentOne.OnFirstFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MvpFragmentOne#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class MvpFragmentOne extends Fragment
-		implements View.OnFocusChangeListener,
+		implements
 		CompoundButton.OnCheckedChangeListener, UserViewOne {
 	private static final String ARG_USER_ID = "userId";
-
-	/**
-	 * Use this factory method to create a new instance of
-	 * this fragment using the provided parameters.
-	 *
-	 * @param userId The user ID.
-	 * @return A new instance of fragment FirstPatternFragment.
-	 */
-	public static MvpFragmentOne newInstance(int userId) {
-		MvpFragmentOne fragment = new MvpFragmentOne();
-		Bundle args = new Bundle();
-		args.putInt(ARG_USER_ID, userId);
-		fragment.setArguments(args);
-		return fragment;
-	}
 
 	private int mUserId = 2;
 
@@ -64,26 +44,11 @@ public class MvpFragmentOne extends Fragment
 	private TextView mCreatedAtView;
 	private TextView mUpdatedAtView;
 
-	private OnFirstFragmentInteractionListener mListener;
-
 	private MyMvp mMyMvp;
 	private UserPresenterOne mPresenter;
 
-	private Map<EditText, Editable> mPreviousValuesMap;
-
 	public MvpFragmentOne() {
 		// Required empty public constructor
-	}
-
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		try {
-			mListener = (OnFirstFragmentInteractionListener) activity;
-		} catch (ClassCastException e) {
-			throw new ClassCastException(activity.toString()
-					+ " must implement OnFirstFragmentInteractionListener");
-		}
 	}
 
 	@Override
@@ -111,15 +76,9 @@ public class MvpFragmentOne extends Fragment
 		mCreatedAtView = (TextView) view.findViewById(R.id.fragment_mvp_one_user_created_at);
 		mUpdatedAtView = (TextView) view.findViewById(R.id.fragment_mvp_one_user_updated_at);
 
-		mPreviousValuesMap = new HashMap<EditText, Editable>();
-		mPreviousValuesMap.put(mFirstNameEdit, mFirstNameEdit.getText());
-		mPreviousValuesMap.put(mLastNameEdit, mLastNameEdit.getText());
-		mPreviousValuesMap.put(mUsernameEdit, mUsernameEdit.getText());
-
-		mFirstNameEdit.setOnFocusChangeListener(this);
-		mLastNameEdit.setOnFocusChangeListener(this);
-		mUsernameEdit.setOnFocusChangeListener(this);
-
+		mFirstNameEdit.addTextChangedListener(new EditTextWatcher(mFirstNameEdit));
+		mLastNameEdit.addTextChangedListener(new EditTextWatcher(mLastNameEdit));
+		mUsernameEdit.addTextChangedListener(new EditTextWatcher(mUsernameEdit));
 		mStatusCbx.setOnCheckedChangeListener(this);
 	}
 
@@ -150,42 +109,20 @@ public class MvpFragmentOne extends Fragment
 		mMyMvp.unregisterPresenter(mPresenter);
 	}
 
-	@Override
-	public void onDetach() {
-		super.onDetach();
-		mListener = null;
-	}
-
-	// TODO: Rename method, update argument and hook method into UI event
-	public void onButtonPressed(Uri uri) {
-		if (mListener != null) {
-			mListener.onFirstFragmentInteraction(uri);
-		}
-	}
-
 	// Interaction listeners
 
-	@Override
-	public void onFocusChange(View v, boolean hasFocus) {
-		if (v instanceof EditText && !hasFocus) {
-			EditText editText = (EditText) v;
-			if (!TextUtils.equals(editText.getText(), mPreviousValuesMap.get(editText))) {
-				mPreviousValuesMap.put(editText, editText.getText());
-				switch (editText.getId()) {
-					case R.id.fragment_mvp_one_first_name: {
-//						mPresenter.doSomething;
-						break;
-					}
-					case R.id.fragment_mvp_one_last_name: {
-//						mPresenter.doSomething;
-						break;
-					}
-					case R.id.fragment_mvp_one_username: {
-//						mPresenter.doSomething;
-						break;
-					}
-				}
-			}
+	public void onEditTextChanged(EditText editText, CharSequence text) {
+		LogEx.d(String.format("editText=%s, text=%s", editText, String.valueOf(text)));
+		switch (editText.getId()) {
+			case R.id.fragment_mvp_one_first_name:
+				mPresenter.setUserFirstName(mUserId, String.valueOf(text));
+				break;
+			case R.id.fragment_mvp_one_last_name:
+				mPresenter.setUserLastName(mUserId, String.valueOf(text));
+				break;
+			case R.id.fragment_mvp_one_username:
+				mPresenter.setUsername(mUserId, String.valueOf(text));
+				break;
 		}
 	}
 
@@ -226,21 +163,29 @@ public class MvpFragmentOne extends Fragment
 		mUpdatedAtView.setText(String.valueOf(updatedAt));
 	}
 
-	// Interfaces
+	// Classes
 
-	/**
-	 * This interface must be implemented by activities that contain this
-	 * fragment to allow an interaction in this fragment to be communicated
-	 * to the activity and potentially other fragments contained in that
-	 * activity.
-	 * <p/>
-	 * See the Android Training lesson <a href=
-	 * "http://developer.android.com/training/basics/fragments/communicating.html"
-	 * >Communicating with Other Fragments</a> for more information.
-	 */
-	public interface OnFirstFragmentInteractionListener {
-		// TODO: Update argument type and name
-		public void onFirstFragmentInteraction(Uri uri);
+	protected class EditTextWatcher implements TextWatcher {
+
+		EditText mEditText;
+
+		public EditTextWatcher(EditText editText) {
+			mEditText = editText;
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence text, int start, int count, int after) {
+
+		}
+
+		@Override
+		public void onTextChanged(CharSequence text, int start, int before, int count) {
+			MvpFragmentOne.this.onEditTextChanged(mEditText, text);
+		}
+
+		@Override
+		public void afterTextChanged(Editable text) {
+
+		}
 	}
-
 }

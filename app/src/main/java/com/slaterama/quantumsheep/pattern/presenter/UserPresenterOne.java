@@ -52,6 +52,24 @@ public class UserPresenterOne extends Presenter {
 		((MyModel) mModel).loadUser(id); // TODO This object could do it rather than the model?
 	}
 
+	public void setUserFirstName(int id, String firstName) {
+		UserVO user = ((MyModel) mModel).getUser(id);
+		if (user != null)
+			user.setFirstName(firstName);
+	}
+
+	public void setUserLastName(int id, String lastName) {
+		UserVO user = ((MyModel) mModel).getUser(id);
+		if (user != null)
+			user.setLastName(lastName);
+	}
+
+	public void setUsername(int id, String username) {
+		UserVO user = ((MyModel) mModel).getUser(id);
+		if (user != null)
+			user.setUsername(username);
+	}
+
 	public void setUserActive(int id, boolean active) {
 		UserVO user = ((MyModel) mModel).getUser(id);
 		if (user != null)
