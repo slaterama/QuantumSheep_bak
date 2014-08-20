@@ -1,10 +1,8 @@
 package com.slaterama.quantumsheep.pattern.model;
 
-import com.slaterama.qslib.alpha.app.pattern.Model;
+import android.util.SparseArray;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.slaterama.qslib.alpha.app.pattern.Model;
 
 public class MyModel extends Model {
 
@@ -17,36 +15,39 @@ public class MyModel extends Model {
 	public final static String PROP_USER_ACTIVE = "active";
 	public final static String PROP_UPDATED_AT = "updatedAt";
 
-	private List<UserVO> mUsers;
+	private SparseArray<UserVO> mUsers;
+
+	private boolean mUsersLoaded = false;
 
 	public MyModel() {
 		super();
-		mUsers = new ArrayList<UserVO>();
-		mUsers.add(new UserVO(this, 1, "Scott", "Slater", "slaterama", true));
-	}
-	
-	public void notifyUserFirstNameChanged(UserVO user, String firstName) {
-		notifyObservers(new ModelEvent(USER_CHANGED, user.getId(), PROP_USER_FIRST_NAME, firstName));
-	}
-	
-	public void notifyUserLastNameChanged(UserVO user, String lastName) {
-		notifyObservers(new ModelEvent(USER_CHANGED, user.getId(), PROP_USER_LAST_NAME, lastName));
-	}
-	
-	public void notifyUserUsernameChanged(UserVO user, String username) {
-		notifyObservers(new ModelEvent(USER_CHANGED, user.getId(), PROP_USER_USERNAME, username));
-	}
-	
-	public void notifyUserStateChanged(UserVO user, boolean active) {
-		notifyObservers(new ModelEvent(USER_CHANGED, user.getId(), PROP_USER_ACTIVE, active));
+		mUsers = new SparseArray<UserVO>();
+		mUsers.put(1, new UserVO(this, 1, "Scott", "Slater", "slaterama", true));
+		mUsers.put(2, new UserVO(this, 2, "Johnny", "Appleseed", "jappleseed", false));
+		mUsersLoaded = true;
 	}
 
-	public void notifyObjectUpdatedAtChanged(BaseVO object, Date updatedAt) {
-		if (object instanceof UserVO)
-			notifyUserUpdatedAtChanged((UserVO) object, updatedAt);
+	public void loadUser(int id) {
+		if (mUsersLoaded) {
+			UserVO user = mUsers.get(id);
+			onUserLoaded(user);
+		} else {
+
+		}
 	}
-	
-	public void notifyUserUpdatedAtChanged(UserVO user, Date updatedAt) {
-		notifyObservers(new ModelEvent(USER_CHANGED, user.getId(), PROP_UPDATED_AT, updatedAt));
+
+	public UserVO getUser(int id) {
+		return mUsers.get(id);
 	}
+
+	public void onUserLoaded(UserVO user) {
+		setChanged();
+		notifyObservers(new ModelEvent(USER_LOADED, user.getId(), null, user));
+	}
+
+	protected void onChanged(String action, Object what, String property, Object value) {
+		setChanged();
+		notifyObservers(new ModelEvent(action, what, property, value));
+	}
+
 }

@@ -21,8 +21,7 @@ public class UserVO extends BaseVO {
 
 	public void setFirstName(String firstName) {
 		mFirstName = firstName;
-		mModel.notifyUserFirstNameChanged(this, firstName);
-		onUpdated();
+		onChanged(MyModel.USER_CHANGED, MyModel.PROP_USER_FIRST_NAME, firstName);
 	}
 
 	public String getLastName() {
@@ -31,8 +30,7 @@ public class UserVO extends BaseVO {
 
 	public void setLastName(String lastName) {
 		mLastName = lastName;
-		mModel.notifyUserLastNameChanged(this, lastName);
-		onUpdated();
+		onChanged(MyModel.USER_CHANGED, MyModel.PROP_USER_LAST_NAME, lastName);
 	}
 
 	public String getUsername() {
@@ -41,8 +39,7 @@ public class UserVO extends BaseVO {
 
 	public void setUsername(String username) {
 		mUsername = username;
-		mModel.notifyUserUsernameChanged(this, username);
-		onUpdated();
+		onChanged(MyModel.USER_CHANGED, MyModel.PROP_USER_USERNAME, username);
 	}
 
 	public boolean isActive() {
@@ -51,8 +48,6 @@ public class UserVO extends BaseVO {
 
 	public void setActive(boolean active) {
 		mActive = active;
-		mModel.notifyUserStateChanged(this, active);
-		onUpdated();
+		onChanged(MyModel.USER_CHANGED, MyModel.PROP_USER_ACTIVE, active);
 	}
-
 }

@@ -5,16 +5,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
-import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
 import com.slaterama.quantumsheep.pattern.MyMvp;
-import com.slaterama.quantumsheep.pattern.presenter.EmployeePresenterTwo;
-import com.slaterama.quantumsheep.pattern.presenter.EmployeePresenterTwo.EmployeeViewTwo;
+import com.slaterama.quantumsheep.pattern.presenter.UserPresenterOne;
+import com.slaterama.quantumsheep.pattern.presenter.UserPresenterTwo;
+import com.slaterama.quantumsheep.pattern.presenter.UserPresenterTwo.UserViewTwo;
+
+import java.util.Date;
 
 import static com.slaterama.quantumsheep.view.MvpActivity.PATTERN_ID;
 
@@ -28,7 +32,7 @@ import static com.slaterama.quantumsheep.view.MvpActivity.PATTERN_ID;
  *
  */
 public class MvpFragmentTwo extends Fragment
-		implements EmployeeViewTwo {
+		implements UserViewTwo {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,11 +59,16 @@ public class MvpFragmentTwo extends Fragment
 	// TODO: Rename and change types of parameters
 	private String mParam1;
 	private String mParam2;
+	private int mUserId = 2;
+
+	private TextView mFullNameView;
+	private TextView mStatusView;
+	private TextView mUpdatedAtView;
 
 	private OnSecondFragmentInteractionListener mListener;
 
 	private MyMvp mMyMvp;
-	private EmployeePresenterTwo mPresenter;
+	private UserPresenterTwo mPresenter;
 
 	public MvpFragmentTwo() {
         // Required empty public constructor
@@ -93,13 +102,38 @@ public class MvpFragmentTwo extends Fragment
     }
 
 	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		mFullNameView = (TextView) view.findViewById(R.id.fragment_mvp_two_name);
+		mStatusView = (TextView) view.findViewById(R.id.fragment_mvp_two_status);
+		mUpdatedAtView = (TextView) view.findViewById(R.id.fragment_mvp_two_updated_at);
+	}
+
+	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mMyMvp = (MyMvp) PatternManager.newInstance(getActivity()).getPattern(PATTERN_ID);
 		if (mMyMvp == null)
 			throw new IllegalStateException(String.format("Expecting %s pattern with ID %d",
 					MyMvp.class.getSimpleName(), PATTERN_ID));
-		mPresenter = new EmployeePresenterTwo(this);
+		mPresenter = new UserPresenterTwo(this);
+		mMyMvp.registerPresenter(mPresenter);
+		mPresenter.loadUser(mUserId);
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		mMyMvp.registerPresenter(mPresenter);
+
+		// TODO I don't like registering the presenter both in onActivityCreated and here.
+		// But I need to load user once, AFTER registering.
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		mMyMvp.unregisterPresenter(mPresenter);
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event
@@ -113,6 +147,24 @@ public class MvpFragmentTwo extends Fragment
 	public void onDetach() {
 		super.onDetach();
 		mListener = null;
+	}
+
+	// UserViewTwo implementation
+
+
+	@Override
+	public void setFullName(String fullName) {
+		mFullNameView.setText(fullName);
+	}
+
+	@Override
+	public void setStatus(boolean active) {
+		mStatusView.setText(active ? "Active" : "Inactive");
+	}
+
+	@Override
+	public void setUpdatedAt(Date updatedAt) {
+		mUpdatedAtView.setText(String.valueOf(updatedAt));
 	}
 
 	/**

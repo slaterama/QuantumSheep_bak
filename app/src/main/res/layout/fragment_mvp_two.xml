@@ -9,8 +9,67 @@
 				tools:context="com.slaterama.quantumsheep.view.MvpFragmentTwo">
 
 	<TextView
-		android:text="@string/hello_second_fragment"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" />
+		android:id="@+id/fragment_mvp_two_name_label"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:text="@string/fragment_mvp_two_user_full_name_label"/>
+	
+	<TextView
+		android:id="@+id/fragment_mvp_two_name"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/fragment_mvp_two_name_label"
+		android:layout_alignLeft="@id/fragment_mvp_two_name_label"
+		android:layout_alignStart="@id/fragment_mvp_two_name_label"
+		android:layout_alignRight="@id/fragment_mvp_two_name_label"
+		android:layout_alignEnd="@id/fragment_mvp_two_name_label"/>
+
+	<TextView
+		android:id="@+id/fragment_mvp_two_status_label"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/fragment_mvp_two_name"
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:text="@string/fragment_mvp_two_user_status_label"/>
+
+	<TextView
+		android:id="@+id/fragment_mvp_two_status"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/fragment_mvp_two_status_label"
+		android:layout_alignLeft="@id/fragment_mvp_two_status_label"
+		android:layout_alignStart="@id/fragment_mvp_two_status_label"
+		android:layout_alignRight="@id/fragment_mvp_two_status_label"
+		android:layout_alignEnd="@id/fragment_mvp_two_status_label"/>
+
+	<TextView
+		android:id="@+id/fragment_mvp_two_updated_at_label"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/fragment_mvp_two_status"
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:text="@string/fragment_mvp_two_user_updated_at_label"/>
+
+	<TextView
+		android:id="@+id/fragment_mvp_two_updated_at"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/fragment_mvp_two_updated_at_label"
+		android:layout_alignLeft="@id/fragment_mvp_two_updated_at_label"
+		android:layout_alignStart="@id/fragment_mvp_two_updated_at_label"
+		android:layout_alignRight="@id/fragment_mvp_two_updated_at_label"
+		android:layout_alignEnd="@id/fragment_mvp_two_updated_at_label"/>
 
 </RelativeLayout>

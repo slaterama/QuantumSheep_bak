@@ -1,5 +1,7 @@
 package com.slaterama.quantumsheep.pattern.model;
 
+import com.slaterama.qslib.alpha.app.pattern.Model.ModelEvent;
+
 import java.util.Date;
 
 public class BaseVO {
@@ -28,8 +30,13 @@ public class BaseVO {
 		return mUpdatedAt;
 	}
 
-	protected void onUpdated() {
+	protected void onChanged(String action, String property, Object value) {
+		mModel.onChanged(action, mId, property, value);
+		onUpdated(action);
+	}
+
+	protected void onUpdated(String action) {
 		mUpdatedAt = new Date();
-		mModel.notifyObjectUpdatedAtChanged(this, mUpdatedAt);
+		mModel.onChanged(action, mId, MyModel.PROP_UPDATED_AT, mUpdatedAt);
 	}
 }
