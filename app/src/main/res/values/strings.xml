@@ -8,12 +8,15 @@
 
     <!-- App-wide strings -->
 
-    <string name="mvp_pattern_test">MVP Pattern Test</string>
+	<string name="mvp_pattern_test">MVP Pattern Test</string>
+    <string name="mvp_pattern_test_1">MVP Pattern Test (User 1)</string>
+	<string name="mvp_pattern_test_2">MVP Pattern Test (User 2)</string>
     <string name="login_test">Login Test</string>
     <string name="other_stuff">Other Stuff</string>
 
     <string-array name="main_menu">
-        <item>@string/mvp_pattern_test</item>
+        <item>@string/mvp_pattern_test_1</item>
+		<item>@string/mvp_pattern_test_2</item>
         <item>@string/login_test</item>
         <item>@string/other_stuff</item>
     </string-array>

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +21,6 @@ import com.slaterama.quantumsheep.pattern.presenter.UserPresenterOne;
 import com.slaterama.quantumsheep.pattern.presenter.UserPresenterOne.UserViewOne;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.slaterama.quantumsheep.view.MvpActivity.PATTERN_ID;
 
@@ -35,7 +32,7 @@ public class MvpFragmentOne extends Fragment
 		CompoundButton.OnCheckedChangeListener, UserViewOne {
 	private static final String ARG_USER_ID = "userId";
 
-	private int mUserId = 2;
+	private int mUserId = -1;
 
 	private EditText mFirstNameEdit;
 	private EditText mLastNameEdit;
@@ -91,7 +88,8 @@ public class MvpFragmentOne extends Fragment
 					MyMvp.class.getSimpleName(), PATTERN_ID));
 		mPresenter = new UserPresenterOne(this);
 		mMyMvp.registerPresenter(mPresenter);
-		mPresenter.loadUser(mUserId);
+		if (mUserId >= 0)
+			mPresenter.retrieveUser(mUserId);
 	}
 
 	@Override
@@ -107,6 +105,14 @@ public class MvpFragmentOne extends Fragment
 	public void onStop() {
 		super.onStop();
 		mMyMvp.unregisterPresenter(mPresenter);
+	}
+
+	// Methods
+
+	public void setUserId(int userId) {
+		mUserId = userId;
+		if (mPresenter != null)
+			mPresenter.retrieveUser(mUserId);
 	}
 
 	// Interaction listeners

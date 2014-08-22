@@ -20,18 +20,27 @@ public class MvpActivity extends ActionBarActivity
 	private PatternManager mPatternManager;
 	private MyMvp mMyMvp;
 
-    @Override
+	private int mUserId;
+
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mvp);
+
 		mPatternManager = PatternManager.newInstance(this);
 		mMyMvp = (MyMvp) mPatternManager.initPattern(PATTERN_ID, null, this);
 		LogEx.d(String.format("mMyMvp=%s", mMyMvp));
+
+		mUserId = getIntent().getIntExtra("user_id", 1);
 	}
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
+
+		MvpFragmentOne fragmentOne = (MvpFragmentOne) getSupportFragmentManager().findFragmentById(R.id.mvp_fragment_one);
+		MvpFragmentTwo fragmentTwo = (MvpFragmentTwo) getSupportFragmentManager().findFragmentById(R.id.mvp_fragment_two);
+		fragmentOne.setUserId(mUserId);
 	}
 
 	@Override

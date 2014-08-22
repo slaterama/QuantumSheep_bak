@@ -11,15 +11,14 @@
 			  tools:ignore="MergeRootFrame">
 
 	<fragment
-		android:id="@+id/first_pattern_fragment"
+		android:id="@+id/mvp_fragment_one"
 		android:name="com.slaterama.quantumsheep.view.MvpFragmentOne"
 		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
+		android:layout_height="wrap_content"
 		tools:layout="@layout/fragment_mvp_one"/>
 
 	<fragment
-		android:id="@+id/second_pattern_fragment"
+		android:id="@+id/mvp_fragment_two"
 		android:name="com.slaterama.quantumsheep.view.MvpFragmentTwo"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"

@@ -23,7 +23,7 @@ import static com.slaterama.quantumsheep.view.MvpActivity.PATTERN_ID;
  */
 public class MvpFragmentTwo extends Fragment
 		implements UserViewTwo {
-	private int mUserId = 2;
+	private int mUserId = -1;
 
 	private TextView mFullNameView;
 	private TextView mStatusView;
@@ -56,7 +56,8 @@ public class MvpFragmentTwo extends Fragment
 					MyMvp.class.getSimpleName(), PATTERN_ID));
 		mPresenter = new UserPresenterTwo(this);
 		mMyMvp.registerPresenter(mPresenter);
-		mPresenter.loadUser(mUserId);
+		if (mUserId >= 0)
+			mPresenter.retrieveUser(mUserId);
 	}
 
 	@Override
@@ -74,8 +75,15 @@ public class MvpFragmentTwo extends Fragment
 		mMyMvp.unregisterPresenter(mPresenter);
 	}
 
-	// UserViewTwo implementation
+	// Methods
 
+	public void setUserId(int userId) {
+		mUserId = userId;
+		if (mPresenter != null)
+			mPresenter.retrieveUser(mUserId);
+	}
+
+	// UserViewTwo implementation
 
 	@Override
 	public void setFullName(String fullName) {

@@ -45,9 +45,17 @@ public class MainActivity extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
+		Intent intent;
 		switch (position) {
 			case 0:
-				startActivity(new Intent(this, MvpActivity.class));
+				intent = new Intent(this, MvpActivity.class);
+				intent.putExtra("user_id", 1);
+				startActivity(intent);
+				break;
+			case 1:
+				intent = new Intent(this, MvpActivity.class);
+				intent.putExtra("user_id", 2);
+				startActivity(intent);
 				break;
 			default:
 				Toast.makeText(this, R.string.toast_not_yet_supported, Toast.LENGTH_SHORT).show();

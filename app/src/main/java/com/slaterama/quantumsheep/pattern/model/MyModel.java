@@ -27,10 +27,10 @@ public class MyModel extends Model {
 		mUsersLoaded = true;
 	}
 
-	public void loadUser(int id) {
+	public void retrieveUser(int id) {
 		if (mUsersLoaded) {
 			UserVO user = mUsers.get(id);
-			onUserLoaded(user);
+			onUserRetrieved(user);
 		} else {
 
 		}
@@ -40,7 +40,7 @@ public class MyModel extends Model {
 		return mUsers.get(id);
 	}
 
-	public void onUserLoaded(UserVO user) {
+	public void onUserRetrieved(UserVO user) {
 		setChanged();
 		notifyObservers(new ModelEvent(USER_LOADED, user.getId(), null, user));
 	}

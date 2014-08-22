@@ -52,9 +52,9 @@ public class UserPresenterTwo extends Presenter {
 		}
 	}
 
-	public void loadUser(int id) {
+	public void retrieveUser(int id) {
 		LogEx.d();
-		((MyModel) mModel).loadUser(id); // TODO This object could do it rather than the model?
+		((MyModel) mModel).retrieveUser(id); // TODO This object could do it rather than the model?
 	}
 
 	public static interface UserViewTwo extends IView {
