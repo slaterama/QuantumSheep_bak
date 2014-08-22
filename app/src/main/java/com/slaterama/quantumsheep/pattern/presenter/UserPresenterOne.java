@@ -49,7 +49,7 @@ public class UserPresenterOne extends Presenter {
 
 	public void retrieveUser(int id) {
 		LogEx.d();
-		((MyModel) mModel).retrieveUser(id); // TODO This object could do it rather than the model?
+		((MyModel) mModel).loadUser(id); // TODO This object could do it rather than the model?
 	}
 
 	public void setUserFirstName(int id, String firstName) {
