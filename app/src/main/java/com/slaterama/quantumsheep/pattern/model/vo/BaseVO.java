@@ -1,6 +1,7 @@
-package com.slaterama.quantumsheep.pattern.model;
+package com.slaterama.quantumsheep.pattern.model.vo;
 
 import com.slaterama.qslib.alpha.app.pattern.Model.ModelEvent;
+import com.slaterama.quantumsheep.pattern.model.MyModel;
 
 import java.util.Date;
 

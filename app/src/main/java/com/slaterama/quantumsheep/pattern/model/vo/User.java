@@ -1,13 +1,16 @@
-package com.slaterama.quantumsheep.pattern.model;
+package com.slaterama.quantumsheep.pattern.model.vo;
 
-public class UserVO extends BaseVO {
+import com.slaterama.quantumsheep.pattern.model.MyModel;
+import com.slaterama.quantumsheep.pattern.model.vo.BaseVO;
+
+public class User extends BaseVO {
 
 	private String mFirstName;
 	private String mLastName;
 	private String mUsername;
 	private boolean mActive;
 
-	public UserVO(MyModel model, int id, String firstName, String lastName, String username, boolean active) {
+	public User(MyModel model, int id, String firstName, String lastName, String username, boolean active) {
 		super(model, id);
 		mFirstName = firstName;
 		mLastName = lastName;
