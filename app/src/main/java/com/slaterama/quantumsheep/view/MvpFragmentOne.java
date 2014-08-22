@@ -37,7 +37,7 @@ public class MvpFragmentOne extends Fragment
 	private EditText mFirstNameEdit;
 	private EditText mLastNameEdit;
 	private EditText mUsernameEdit;
-	private CheckBox mStatusCbx;
+	private CheckBox mActiveCbx;
 	private TextView mCreatedAtView;
 	private TextView mUpdatedAtView;
 
@@ -69,14 +69,14 @@ public class MvpFragmentOne extends Fragment
 		mFirstNameEdit = (EditText) view.findViewById(R.id.fragment_mvp_one_first_name);
 		mLastNameEdit = (EditText) view.findViewById(R.id.fragment_mvp_one_last_name);
 		mUsernameEdit = (EditText) view.findViewById(R.id.fragment_mvp_one_username);
-		mStatusCbx = (CheckBox) view.findViewById(R.id.fragment_mvp_one_status);
+		mActiveCbx = (CheckBox) view.findViewById(R.id.fragment_mvp_one_status);
 		mCreatedAtView = (TextView) view.findViewById(R.id.fragment_mvp_one_user_created_at);
 		mUpdatedAtView = (TextView) view.findViewById(R.id.fragment_mvp_one_user_updated_at);
 
 		mFirstNameEdit.addTextChangedListener(new EditTextWatcher(mFirstNameEdit));
 		mLastNameEdit.addTextChangedListener(new EditTextWatcher(mLastNameEdit));
 		mUsernameEdit.addTextChangedListener(new EditTextWatcher(mUsernameEdit));
-		mStatusCbx.setOnCheckedChangeListener(this);
+		mActiveCbx.setOnCheckedChangeListener(this);
 	}
 
 	@Override
@@ -155,8 +155,8 @@ public class MvpFragmentOne extends Fragment
 	}
 
 	@Override
-	public void setStatus(boolean active) {
-		mStatusCbx.setChecked(active);
+	public void setActive(boolean active) {
+		mActiveCbx.setChecked(active);
 	}
 
 	@Override

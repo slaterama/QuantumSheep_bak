@@ -1,20 +1,20 @@
 package com.slaterama.quantumsheep.pattern.model.vo;
 
-import com.slaterama.qslib.alpha.app.pattern.Model.ModelEvent;
-import com.slaterama.quantumsheep.pattern.model.MyModel;
+import com.slaterama.qslib.alpha.app.pattern.ModelEntity;
+import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
+import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
 
 import java.util.Date;
 
-public class BaseVO {
+public class BaseVO extends ModelEntity {
 
-	protected MyModel mModel;
+	public static final String UPDATED_AT = "updatedAt";
 
 	private int mId;
 	private Date mCreatedAt;
 	private Date mUpdatedAt;
 
-	public BaseVO(MyModel model, int id) {
-		mModel = model;
+	public BaseVO(int id) {
 		mId = id;
 		mCreatedAt = mUpdatedAt = new Date();
 	}
@@ -31,13 +31,19 @@ public class BaseVO {
 		return mUpdatedAt;
 	}
 
-	protected void onChanged(String action, String property, Object value) {
-		mModel.onChanged(action, mId, property, value);
-		onUpdated(action);
+	@Override
+	protected void notifyUpdated(UpdateEvent event) {
+		super.notifyUpdated(event);
+		refreshUpdatedAt();
 	}
 
-	protected void onUpdated(String action) {
-		mUpdatedAt = new Date();
-		mModel.onChanged(action, mId, MyModel.PROP_UPDATED_AT, mUpdatedAt);
+	protected void refreshUpdatedAt() {
+		Date updatedAt = new Date();
+		if (!ObjectsCompat.getInstance().equals(mUpdatedAt, updatedAt)) {
+			UpdateEvent event = new UpdateEvent(this, UPDATED_AT, mUpdatedAt, updatedAt);
+			mUpdatedAt = updatedAt;
+			setChanged();
+			notifyObservers(event);
+		}
 	}
 }

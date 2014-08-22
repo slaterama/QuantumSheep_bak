@@ -1,17 +1,23 @@
 package com.slaterama.quantumsheep.pattern.model.vo;
 
-import com.slaterama.quantumsheep.pattern.model.MyModel;
-import com.slaterama.quantumsheep.pattern.model.vo.BaseVO;
+import android.text.TextUtils;
+
+import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 
 public class User extends BaseVO {
+
+	public static final String FIRST_NAME = "firstName";
+	public static final String LAST_NAME = "lastName";
+	public static final String USERNAME = "userName";
+	public static final String ACTIVE = "active";
 
 	private String mFirstName;
 	private String mLastName;
 	private String mUsername;
 	private boolean mActive;
 
-	public User(MyModel model, int id, String firstName, String lastName, String username, boolean active) {
-		super(model, id);
+	public User(int id, String firstName, String lastName, String username, boolean active) {
+		super(id);
 		mFirstName = firstName;
 		mLastName = lastName;
 		mUsername = username;
@@ -23,8 +29,11 @@ public class User extends BaseVO {
 	}
 
 	public void setFirstName(String firstName) {
-		mFirstName = firstName;
-		onChanged(MyModel.USER_CHANGED, MyModel.PROP_USER_FIRST_NAME, firstName);
+		if (!TextUtils.equals(mFirstName, firstName)) {
+			UpdateEvent event = new UpdateEvent(this, FIRST_NAME, mFirstName, firstName);
+			mFirstName = firstName;
+			notifyUpdated(event);
+		}
 	}
 
 	public String getLastName() {
@@ -32,8 +41,11 @@ public class User extends BaseVO {
 	}
 
 	public void setLastName(String lastName) {
-		mLastName = lastName;
-		onChanged(MyModel.USER_CHANGED, MyModel.PROP_USER_LAST_NAME, lastName);
+		if (!TextUtils.equals(mLastName, lastName)) {
+			UpdateEvent event = new UpdateEvent(this, LAST_NAME, mLastName, lastName);
+			mLastName = lastName;
+			notifyUpdated(event);
+		}
 	}
 
 	public String getUsername() {
@@ -41,8 +53,11 @@ public class User extends BaseVO {
 	}
 
 	public void setUsername(String username) {
-		mUsername = username;
-		onChanged(MyModel.USER_CHANGED, MyModel.PROP_USER_USERNAME, username);
+		if (!TextUtils.equals(mUsername, username)) {
+			UpdateEvent event = new UpdateEvent(this, USERNAME, mUsername, username);
+			mUsername = username;
+			notifyUpdated(event);
+		}
 	}
 
 	public boolean isActive() {
@@ -50,7 +65,10 @@ public class User extends BaseVO {
 	}
 
 	public void setActive(boolean active) {
-		mActive = active;
-		onChanged(MyModel.USER_CHANGED, MyModel.PROP_USER_ACTIVE, active);
+		if (mActive != active) {
+			UpdateEvent event = new UpdateEvent(this, ACTIVE, mActive, active);
+			mActive = active;
+			notifyUpdated(event);
+		}
 	}
 }

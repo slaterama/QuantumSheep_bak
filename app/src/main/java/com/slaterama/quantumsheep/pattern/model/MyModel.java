@@ -3,18 +3,12 @@ package com.slaterama.quantumsheep.pattern.model;
 import android.util.SparseArray;
 
 import com.slaterama.qslib.alpha.app.pattern.Model;
+import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 
-public class MyModel extends Model {
+import java.util.Observer;
 
-	public final static String USER_LOADED = "USER_LOADED";
-	public final static String USER_CHANGED = "USER_CHANGED";
-	
-	public final static String PROP_USER_FIRST_NAME = "firstName";
-	public final static String PROP_USER_LAST_NAME = "lastName";
-	public final static String PROP_USER_USERNAME = "username";
-	public final static String PROP_USER_ACTIVE = "active";
-	public final static String PROP_UPDATED_AT = "updatedAt";
+public class MyModel extends Model {
 
 	private SparseArray<User> mUsers;
 
@@ -23,32 +17,25 @@ public class MyModel extends Model {
 	public MyModel() {
 		super();
 		mUsers = new SparseArray<User>();
-		mUsers.put(1, new User(this, 1, "Scott", "Slater", "slaterama", true));
-		mUsers.put(2, new User(this, 2, "Johnny", "Appleseed", "jappleseed", false));
+
+		User user = new User(1, "Scott", "Slater", "slaterama", true);
+		user.addObserver(this);
+		mUsers.put(user.getId(), user);
+
+		user = new User(2, "Johnny", "Appleseed", "jappleseed", false);
+		user.addObserver(this);
+		mUsers.put(user.getId(), user);
+
 		mUsersLoaded = true;
 	}
 
-	public void retrieveUser(int id) {
-		if (mUsersLoaded) {
-			User user = mUsers.get(id);
-			onUserRetrieved(user);
+	public void retrieveUser(int id, Observer observer) {
+		User user = mUsers.get(id);
+		if (user == null) {
+			// Retrieve the user
 		} else {
-
+			if (observer != null)
+				observer.update(this, new RetrieveEvent(user));
 		}
 	}
-
-	public User getUser(int id) {
-		return mUsers.get(id);
-	}
-
-	public void onUserRetrieved(User user) {
-		setChanged();
-		notifyObservers(new ModelEvent(USER_LOADED, user.getId(), null, user));
-	}
-
-	public void onChanged(String action, Object what, String property, Object value) {
-		setChanged();
-		notifyObservers(new ModelEvent(action, what, property, value));
-	}
-
 }

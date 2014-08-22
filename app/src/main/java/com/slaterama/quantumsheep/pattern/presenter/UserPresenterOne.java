@@ -3,84 +3,106 @@ package com.slaterama.quantumsheep.pattern.presenter;
 import android.text.TextUtils;
 
 import com.slaterama.qslib.alpha.app.pattern.Model;
-import com.slaterama.qslib.alpha.app.pattern.Model.ModelEvent;
+import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
+import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 import com.slaterama.qslib.alpha.app.pattern.mvp.Presenter;
-import com.slaterama.qslib.utils.LogEx;
+import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
 import com.slaterama.quantumsheep.pattern.model.MyModel;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 
 import java.util.Date;
+import java.util.Observable;
 
 public class UserPresenterOne extends Presenter {
 
+	private MyModel mMyModel;
+	private UserViewOne mUserViewOne;
+
+	private User mUser;
+
 	public UserPresenterOne(UserViewOne view) {
 		super(view);
+		mUserViewOne = view;
 	}
 
 	@Override
-	public void update(Model model, ModelEvent event) {
-		String action = event.getAction();
-		if (TextUtils.equals(action, MyModel.USER_LOADED)) {
-			User user = (User) event.getValue();
-			UserViewOne view = ((UserViewOne) mView);
-			view.setFirstName(user.getFirstName());
-			view.setLastName(user.getLastName());
-			view.setUsername(user.getUsername());
-			view.setStatus(user.isActive());
-			view.setCreatedAt(user.getCreatedAt());
-			view.setUpdatedAt(user.getUpdatedAt());
-		} else if (TextUtils.equals(action, MyModel.USER_CHANGED)) {
-			// TODO Do I need this? I should probably check this.
-			// This presenter should probably have "id" saved to check against "what".
-			Object what = event.getWhat();
-			String property = event.getProperty();
-			Object value = event.getValue();
-			if (TextUtils.equals(property, MyModel.PROP_USER_ACTIVE)) {
-				LogEx.d(String.format("property=%s, value=%s", property, String.valueOf(value)));
-				((UserViewOne) mView).setStatus((Boolean) value);
-			} else if (TextUtils.equals(property, MyModel.PROP_UPDATED_AT)) {
-				((UserViewOne) mView).setUpdatedAt((Date) value);
-			}
+	protected void setModel(Model model) {
+		if (ObjectsCompat.getInstance().isNull(model)) {
+			super.setModel(model);
+		} else if (model instanceof MyModel) {
+			super.setModel(model);
+			mMyModel = (MyModel) model;
+		} else {
+			throw new ClassCastException("Model must be of type MyModel");
+		}
+	}
 
-			// TODO I hate this multiple if statements with TextUtils.equals. Options?
-			// TODO So many casts. How to simplify?
+	@Override
+	public void update(Observable observable, Object data) {
+		if (data instanceof RetrieveEvent) {
+			RetrieveEvent event = (RetrieveEvent) data;
+			mUser = (User) event.getSource();
+			if (mUser != null && mUserViewOne != null) {
+				mUserViewOne.setFirstName(mUser.getFirstName());
+				mUserViewOne.setLastName(mUser.getLastName());
+				mUserViewOne.setUsername(mUser.getUsername());
+				mUserViewOne.setActive(mUser.isActive());
+				mUserViewOne.setCreatedAt(mUser.getCreatedAt());
+				mUserViewOne.setUpdatedAt(mUser.getUpdatedAt());
+			}
+		} else if (data instanceof UpdateEvent) {
+			UpdateEvent event = (UpdateEvent) data;
+			if (mUserViewOne != null) {
+				String propertyName = event.getPropertyName();
+				if (TextUtils.equals(propertyName, User.FIRST_NAME)) {
+					// mUserViewOne.setFirstName((String) event.getNewValue());
+					mUserViewOne.setFirstName(mUser.getFirstName());
+				} else if (TextUtils.equals(propertyName, User.LAST_NAME)) {
+					//mUserViewOne.setLastName((String) event.getNewValue());
+					mUserViewOne.setLastName(mUser.getLastName());
+				} else if (TextUtils.equals(propertyName, User.USERNAME)) {
+					//mUserViewOne.setUsername((String) event.getNewValue());
+					mUserViewOne.setUsername(mUser.getUsername());
+				} else if (TextUtils.equals(propertyName, User.ACTIVE)) {
+					//mUserViewOne.setActive((Boolean) event.getNewValue());
+					mUserViewOne.setActive(mUser.isActive());
+				} else if (TextUtils.equals(propertyName, User.UPDATED_AT)) {
+					//mUserViewOne.setUpdatedAt((Date) event.getNewValue());
+					mUserViewOne.setUpdatedAt(mUser.getUpdatedAt());
+				}
+			}
 		}
 	}
 
 	public void retrieveUser(int id) {
-		LogEx.d();
-		((MyModel) mModel).retrieveUser(id); // TODO This object could do it rather than the model?
+		mMyModel.retrieveUser(id, this);
 	}
 
 	public void setUserFirstName(int id, String firstName) {
-		User user = ((MyModel) mModel).getUser(id);
-		if (user != null)
-			user.setFirstName(firstName);
+		if (mUser != null)
+			mUser.setFirstName(firstName);
 	}
 
 	public void setUserLastName(int id, String lastName) {
-		User user = ((MyModel) mModel).getUser(id);
-		if (user != null)
-			user.setLastName(lastName);
+		if (mUser != null)
+			mUser.setLastName(lastName);
 	}
 
 	public void setUsername(int id, String username) {
-		User user = ((MyModel) mModel).getUser(id);
-		if (user != null)
-			user.setUsername(username);
+		if (mUser != null)
+			mUser.setUsername(username);
 	}
 
 	public void setUserActive(int id, boolean active) {
-		User user = ((MyModel) mModel).getUser(id);
-		if (user != null)
-			user.setActive(active);
+		if (mUser != null)
+			mUser.setActive(active);
 	}
 
 	public static interface UserViewOne extends IView {
 		public void setFirstName(String firstName);
 		public void setLastName(String lastName);
 		public void setUsername(String username);
-		public void setStatus(boolean active);
+		public void setActive(boolean active);
 		public void setCreatedAt(Date createdAt);
 		public void setUpdatedAt(Date updatedAt);
 	}

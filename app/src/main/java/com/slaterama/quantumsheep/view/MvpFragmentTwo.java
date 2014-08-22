@@ -91,7 +91,7 @@ public class MvpFragmentTwo extends Fragment
 	}
 
 	@Override
-	public void setStatus(boolean active) {
+	public void setActive(boolean active) {
 		mStatusView.setText(active ? "Active" : "Inactive");
 	}
 

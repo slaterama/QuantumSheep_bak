@@ -41,6 +41,7 @@ public class MvpActivity extends ActionBarActivity
 		MvpFragmentOne fragmentOne = (MvpFragmentOne) getSupportFragmentManager().findFragmentById(R.id.mvp_fragment_one);
 		MvpFragmentTwo fragmentTwo = (MvpFragmentTwo) getSupportFragmentManager().findFragmentById(R.id.mvp_fragment_two);
 		fragmentOne.setUserId(mUserId);
+		fragmentTwo.setUserId(mUserId);
 	}
 
 	@Override
