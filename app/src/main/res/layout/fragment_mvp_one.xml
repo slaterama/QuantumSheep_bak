@@ -2,10 +2,10 @@
 				xmlns:tools="http://schemas.android.com/tools"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:paddingLeft="@dimen/activity_horizontal_margin"
-				android:paddingTop="@dimen/activity_vertical_margin"
-				android:paddingRight="@dimen/activity_horizontal_margin"
-				android:paddingBottom="@dimen/activity_vertical_margin"
+				android:paddingLeft="@dimen/horizontal_margin_between_component_and_screen"
+				android:paddingTop="@dimen/vertical_margin_between_component_and_screen"
+				android:paddingRight="@dimen/horizontal_margin_between_component_and_screen"
+				android:paddingBottom="@dimen/vertical_margin_between_component_and_screen"
 				tools:context="com.slaterama.quantumsheep.view.MvpFragmentOne">
 
 	<TextView
@@ -18,17 +18,17 @@
 		android:id="@+id/fragment_mvp_one_user_id"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="@dimen/activity_horizontal_margin"
-		android:layout_marginLeft="@dimen/activity_horizontal_margin"
+		android:layout_marginStart="@dimen/horizontal_margin_between_components"
+		android:layout_marginLeft="@dimen/horizontal_margin_between_components"
 		android:layout_toRightOf="@id/fragment_mvp_one_user_id_label"
 		android:layout_toEndOf="@id/fragment_mvp_one_user_id_label"
 		android:layout_alignBaseline="@id/fragment_mvp_one_user_id_label"/>
 
 	<View
 		android:id="@+id/center"
-		android:layout_width="@dimen/activity_horizontal_margin"
+		android:layout_width="@dimen/horizontal_margin_between_components"
 		android:layout_height="0dp"
-		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:layout_marginTop="@dimen/vertical_margin_between_components"
 		android:layout_below="@id/fragment_mvp_one_user_id_label"
 		android:layout_centerHorizontal="true" />
 
@@ -79,7 +79,7 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/fragment_mvp_one_last_name"
-		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:layout_marginTop="@dimen/vertical_margin_between_components"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
 		android:layout_toLeftOf="@id/center"
@@ -116,7 +116,7 @@
 		android:layout_alignParentStart="true"
 		android:layout_toLeftOf="@id/center"
 		android:layout_toStartOf="@id/center"
-		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:layout_marginTop="@dimen/vertical_margin_between_components"
 		android:text="@string/fragment_mvp_one_user_created_at_label"/>
 
 	<TextView
@@ -138,7 +138,7 @@
 		android:layout_toEndOf="@id/center"
 		android:layout_alignParentRight="true"
 		android:layout_alignParentEnd="true"
-		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:layout_marginTop="@dimen/vertical_margin_between_components"
 		android:text="@string/fragment_mvp_one_user_updated_at_label"/>
 
 	<TextView
@@ -150,67 +150,5 @@
 		android:layout_alignStart="@id/fragment_mvp_one_user_updated_at_label"
 		android:layout_alignRight="@id/fragment_mvp_one_user_updated_at_label"
 		android:layout_alignEnd="@id/fragment_mvp_one_user_updated_at_label"/>
-
-	<!--
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="@dimen/activity_vertical_margin"
-		android:orientation="horizontal">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/fragment_mvp_one_user_status_label"/>
-
-		<CheckBox
-			android:id="@+id/fragment_mvp_one_active"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/activity_horizontal_margin"
-			android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="@dimen/activity_vertical_margin"
-		android:orientation="horizontal">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/fragment_mvp_one_user_created_at_label"/>
-
-		<TextView
-			android:id="@+id/fragment_mvp_one_created_at"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/activity_horizontal_margin"
-			android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="@dimen/activity_vertical_margin"
-		android:orientation="horizontal">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/fragment_mvp_one_user_updated_at_label"/>
-
-		<TextView
-			android:id="@+id/fragment_mvp_one_updated_at"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/activity_horizontal_margin"
-			android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
-
-	</LinearLayout>
-	-->
 
 </RelativeLayout>

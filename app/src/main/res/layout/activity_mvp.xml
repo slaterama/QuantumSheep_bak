@@ -6,7 +6,7 @@
 			  android:orientation="vertical"
 			  android:showDividers="middle"
 			  android:divider="@drawable/divider_horizontal_gray"
-			  android:dividerPadding="@dimen/activity_horizontal_margin"
+			  android:dividerPadding="@dimen/horizontal_margin_between_component_and_screen"
 			  tools:context="com.slaterama.quantumsheep.view.MvpActivity"
 			  tools:ignore="MergeRootFrame">
 
