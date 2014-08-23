@@ -57,7 +57,7 @@ public class MvpFragmentTwo extends Fragment
 		mPresenter = new UserPresenterTwo(this);
 		mMyMvp.registerPresenter(mPresenter);
 		if (mUserId >= 0)
-			mPresenter.retrieveUser(mUserId);
+			mPresenter.loadUser(mUserId);
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class MvpFragmentTwo extends Fragment
 	public void setUserId(int userId) {
 		mUserId = userId;
 		if (mPresenter != null)
-			mPresenter.retrieveUser(mUserId);
+			mPresenter.loadUser(mUserId);
 	}
 
 	// UserViewTwo implementation

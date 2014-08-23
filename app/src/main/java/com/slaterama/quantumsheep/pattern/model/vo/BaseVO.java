@@ -6,13 +6,11 @@ import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
 
 import java.util.Date;
 
-public class BaseVO extends ModelEntity {
+public abstract class BaseVO extends ModelEntity {
 
-	public static final String UPDATED_AT = "updatedAt";
-
-	private int mId;
-	private Date mCreatedAt;
-	private Date mUpdatedAt;
+	protected int mId;
+	protected Date mCreatedAt;
+	protected Date mUpdatedAt;
 
 	public BaseVO(int id) {
 		mId = id;
@@ -40,10 +38,16 @@ public class BaseVO extends ModelEntity {
 	protected void refreshUpdatedAt() {
 		Date updatedAt = new Date();
 		if (!ObjectsCompat.getInstance().equals(mUpdatedAt, updatedAt)) {
-			UpdateEvent event = new UpdateEvent(this, UPDATED_AT, mUpdatedAt, updatedAt);
+			UpdateEvent event = new UpdateEvent(this, Property.UPDATED_AT, mUpdatedAt, updatedAt);
 			mUpdatedAt = updatedAt;
 			setChanged();
 			notifyObservers(event);
 		}
+	}
+
+	public static enum Property {
+		ID,
+		CREATED_AT,
+		UPDATED_AT
 	}
 }

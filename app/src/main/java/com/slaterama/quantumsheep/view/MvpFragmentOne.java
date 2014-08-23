@@ -89,7 +89,7 @@ public class MvpFragmentOne extends Fragment
 		mPresenter = new UserPresenterOne(this);
 		mMyMvp.registerPresenter(mPresenter);
 		if (mUserId >= 0)
-			mPresenter.retrieveUser(mUserId);
+			mPresenter.loadUser(mUserId);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class MvpFragmentOne extends Fragment
 	public void setUserId(int userId) {
 		mUserId = userId;
 		if (mPresenter != null)
-			mPresenter.retrieveUser(mUserId);
+			mPresenter.loadUser(mUserId);
 	}
 
 	// Interaction listeners

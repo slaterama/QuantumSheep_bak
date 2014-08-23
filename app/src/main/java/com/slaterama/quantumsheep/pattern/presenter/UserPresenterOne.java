@@ -1,13 +1,12 @@
 package com.slaterama.quantumsheep.pattern.presenter;
 
-import android.text.TextUtils;
-
 import com.slaterama.qslib.alpha.app.pattern.Model;
 import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
 import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 import com.slaterama.qslib.alpha.app.pattern.mvp.Presenter;
 import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
 import com.slaterama.quantumsheep.pattern.model.MyModel;
+import com.slaterama.quantumsheep.pattern.model.vo.BaseVO;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 
 import java.util.Date;
@@ -39,43 +38,59 @@ public class UserPresenterOne extends Presenter {
 
 	@Override
 	public void update(Observable observable, Object data) {
+
+		// TODO Make sure this is the user/userID we WANT first
+
 		if (data instanceof RetrieveEvent) {
 			RetrieveEvent event = (RetrieveEvent) data;
 			mUser = (User) event.getSource();
-			if (mUser != null && mUserViewOne != null) {
-				mUserViewOne.setFirstName(mUser.getFirstName());
-				mUserViewOne.setLastName(mUser.getLastName());
-				mUserViewOne.setUsername(mUser.getUsername());
-				mUserViewOne.setActive(mUser.isActive());
-				mUserViewOne.setCreatedAt(mUser.getCreatedAt());
-				mUserViewOne.setUpdatedAt(mUser.getUpdatedAt());
-			}
+			updateView(mUser);
 		} else if (data instanceof UpdateEvent) {
 			UpdateEvent event = (UpdateEvent) data;
-			if (mUserViewOne != null) {
-				String propertyName = event.getPropertyName();
-				if (TextUtils.equals(propertyName, User.FIRST_NAME)) {
-					// mUserViewOne.setFirstName((String) event.getNewValue());
-					mUserViewOne.setFirstName(mUser.getFirstName());
-				} else if (TextUtils.equals(propertyName, User.LAST_NAME)) {
-					//mUserViewOne.setLastName((String) event.getNewValue());
-					mUserViewOne.setLastName(mUser.getLastName());
-				} else if (TextUtils.equals(propertyName, User.USERNAME)) {
-					//mUserViewOne.setUsername((String) event.getNewValue());
-					mUserViewOne.setUsername(mUser.getUsername());
-				} else if (TextUtils.equals(propertyName, User.ACTIVE)) {
-					//mUserViewOne.setActive((Boolean) event.getNewValue());
-					mUserViewOne.setActive(mUser.isActive());
-				} else if (TextUtils.equals(propertyName, User.UPDATED_AT)) {
-					//mUserViewOne.setUpdatedAt((Date) event.getNewValue());
-					mUserViewOne.setUpdatedAt(mUser.getUpdatedAt());
+			Object source = event.getSource();
+			Object property = event.getProperty();
+			if (source instanceof User) {
+				User user = (User) source;
+				if (property instanceof User.Property) {
+					switch ((User.Property) property) {
+						case FIRST_NAME:
+							mUserViewOne.setFirstName(user.getFirstName());
+							break;
+						case LAST_NAME:
+							mUserViewOne.setLastName(user.getLastName());
+							break;
+						case USERNAME:
+							mUserViewOne.setUsername(user.getUsername());
+							break;
+						case ACTIVE:
+							mUserViewOne.setActive(user.isActive());
+							break;
+					}
+				} else if (property instanceof BaseVO.Property) {
+					switch ((BaseVO.Property) property) {
+						case UPDATED_AT:
+							mUserViewOne.setUpdatedAt(user.getUpdatedAt());
+					}
 				}
 			}
 		}
 	}
 
-	public void retrieveUser(int id) {
-		mMyModel.retrieveUser(id, this);
+	public void loadUser(int id) {
+		mUser = mMyModel.getUser(id);
+		if (mUser != null)
+			updateView(mUser);
+	}
+
+	protected void updateView(User user) {
+		if (user != null && mUserViewOne != null) {
+			mUserViewOne.setFirstName(user.getFirstName());
+			mUserViewOne.setLastName(user.getLastName());
+			mUserViewOne.setUsername(user.getUsername());
+			mUserViewOne.setActive(user.isActive());
+			mUserViewOne.setCreatedAt(user.getCreatedAt());
+			mUserViewOne.setUpdatedAt(user.getUpdatedAt());
+		}
 	}
 
 	public void setUserFirstName(int id, String firstName) {

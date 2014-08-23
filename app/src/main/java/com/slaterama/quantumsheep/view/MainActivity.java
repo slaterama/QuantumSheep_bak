@@ -54,7 +54,7 @@ public class MainActivity extends ListActivity {
 				break;
 			case 1:
 				intent = new Intent(this, MvpActivity.class);
-				intent.putExtra("user_id", 2);
+				intent.putExtra("user_id", 3);
 				startActivity(intent);
 				break;
 			default:

@@ -1,18 +1,15 @@
 package com.slaterama.quantumsheep.pattern.model;
 
+import android.os.AsyncTask;
 import android.util.SparseArray;
 
 import com.slaterama.qslib.alpha.app.pattern.Model;
 import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 
-import java.util.Observer;
-
 public class MyModel extends Model {
 
 	private SparseArray<User> mUsers;
-
-	private boolean mUsersLoaded = false;
 
 	public MyModel() {
 		super();
@@ -25,17 +22,41 @@ public class MyModel extends Model {
 		user = new User(2, "Johnny", "Appleseed", "jappleseed", false);
 		user.addObserver(this);
 		mUsers.put(user.getId(), user);
-
-		mUsersLoaded = true;
 	}
 
-	public void retrieveUser(int id, Observer observer) {
+	public User getUser(int id, boolean retrieveIfNotFound) {
 		User user = mUsers.get(id);
-		if (user == null) {
-			// Retrieve the user
-		} else {
-			if (observer != null)
-				observer.update(this, new RetrieveEvent(user));
-		}
+		if (user == null && retrieveIfNotFound)
+			retrieveUser(id);
+		return user;
+	}
+
+	public User getUser(int id) {
+		return getUser(id, true);
+	}
+
+	public void retrieveUser(int id) {
+		new AsyncTask<Integer, Void, User>() {
+			@Override
+			protected User doInBackground(Integer... params) {
+				try {
+					Thread.sleep(1500);
+					User newUser = new User(params[0],
+							String.format("User%d", params[0]), "McUserpants",
+							String.format("usermcu%d", params[0]), true);
+					mUsers.put(params[0], newUser);
+					return newUser;
+				} catch (InterruptedException e) {}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(User user) {
+				if (user != null) {
+					setChanged();
+					notifyObservers(new RetrieveEvent(user));
+				}
+			}
+		}.execute(id);
 	}
 }

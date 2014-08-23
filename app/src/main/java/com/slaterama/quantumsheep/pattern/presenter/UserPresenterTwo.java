@@ -1,13 +1,12 @@
 package com.slaterama.quantumsheep.pattern.presenter;
 
-import android.text.TextUtils;
-
 import com.slaterama.qslib.alpha.app.pattern.Model;
 import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
 import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 import com.slaterama.qslib.alpha.app.pattern.mvp.Presenter;
 import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
 import com.slaterama.quantumsheep.pattern.model.MyModel;
+import com.slaterama.quantumsheep.pattern.model.vo.BaseVO;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 
 import java.util.Date;
@@ -39,41 +38,52 @@ public class UserPresenterTwo extends Presenter {
 
 	@Override
 	public void update(Observable observable, Object data) {
+
+		// TODO Make sure this is the user/userID we WANT first
+
 		if (data instanceof RetrieveEvent) {
 			RetrieveEvent event = (RetrieveEvent) data;
 			mUser = (User) event.getSource();
-			if (mUser != null && mUserViewTwo != null) {
-				mUserViewTwo.setFullName(makeFullName(mUser.getFirstName(), mUser.getLastName()));
-				mUserViewTwo.setActive(mUser.isActive());
-				mUserViewTwo.setUpdatedAt(mUser.getUpdatedAt());
-			}
+			updateView(mUser);
 		} else if (data instanceof UpdateEvent) {
 			UpdateEvent event = (UpdateEvent) data;
-			if (mUserViewTwo != null) {
-				String propertyName = event.getPropertyName();
-				if (TextUtils.equals(propertyName, User.FIRST_NAME)) {
-					//mUserViewTwo.setFullName(makeFullName((String) event.getNewValue(), mUser.getLastName()));
-					mUserViewTwo.setFullName(makeFullName(mUser.getFirstName(), mUser.getLastName()));
-				} else if (TextUtils.equals(propertyName, User.LAST_NAME)) {
-					//mUserViewTwo.setFullName(makeFullName(mUser.getFirstName(), (String) event.getNewValue()));
-					mUserViewTwo.setFullName(makeFullName(mUser.getFirstName(), mUser.getLastName()));
-				} else if (TextUtils.equals(propertyName, User.ACTIVE)) {
-					//mUserViewTwo.setActive((Boolean) event.getNewValue());
-					mUserViewTwo.setActive(mUser.isActive());
-				} else if (TextUtils.equals(propertyName, User.UPDATED_AT)) {
-					//mUserViewTwo.setUpdatedAt((Date) event.getNewValue());
-					mUserViewTwo.setUpdatedAt(mUser.getUpdatedAt());
+			Object source = event.getSource();
+			Object property = event.getProperty();
+			if (source instanceof User) {
+				User user = (User) source;
+				if (property instanceof User.Property) {
+					switch ((User.Property) property) {
+						case FIRST_NAME:
+						case LAST_NAME:
+							mUserViewTwo.setFullName(user.getFullName());
+							break;
+						case ACTIVE:
+							mUserViewTwo.setActive(user.isActive());
+							break;
+					}
+				} else if (property instanceof BaseVO.Property) {
+					switch ((BaseVO.Property) property) {
+						case UPDATED_AT:
+							mUserViewTwo.setUpdatedAt(user.getUpdatedAt());
+							break;
+					}
 				}
 			}
 		}
 	}
 
-	public void retrieveUser(int id) {
-		mMyModel.retrieveUser(id, this);
+	public void loadUser(int id) {
+		mUser = mMyModel.getUser(id);
+		if (mUser != null)
+			updateView(mUser);
 	}
 
-	private String makeFullName(String firstName, String lastName) {
-		return String.format("%s %s", firstName, lastName);
+	protected void updateView(User user) {
+		if (user != null && mUserViewTwo != null) {
+			mUserViewTwo.setFullName(user.getFullName());
+			mUserViewTwo.setActive(user.isActive());
+			mUserViewTwo.setUpdatedAt(user.getUpdatedAt());
+		}
 	}
 
 	public static interface UserViewTwo extends IView {
