@@ -4,7 +4,6 @@ import com.slaterama.qslib.alpha.app.pattern.Model;
 import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
 import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 import com.slaterama.qslib.alpha.app.pattern.mvp.Presenter;
-import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
 import com.slaterama.quantumsheep.pattern.model.MyModel;
 import com.slaterama.quantumsheep.pattern.model.vo.BaseVO;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
@@ -26,8 +25,8 @@ public class UserPresenterOne extends Presenter {
 
 	@Override
 	protected void setModel(Model model) {
-		if (ObjectsCompat.getInstance().isNull(model)) {
-			super.setModel(model);
+		if (model == null) {
+			super.setModel(null);
 		} else if (model instanceof MyModel) {
 			super.setModel(model);
 			mMyModel = (MyModel) model;
