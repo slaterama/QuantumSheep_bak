@@ -43,34 +43,32 @@ public class UserPresenterOne extends Presenter {
 
 		if (data instanceof RetrieveEvent) {
 			RetrieveEvent event = (RetrieveEvent) data;
-			mUser = (User) event.getSource();
-			updateView(mUser);
+			if (event.getSource() instanceof User) {
+				User user = (User) event.getSource();
+				mUser = (User) event.getSource();
+				updateView(mUser);
+			}
 		} else if (data instanceof UpdateEvent) {
 			UpdateEvent event = (UpdateEvent) data;
 			Object source = event.getSource();
-			Object property = event.getProperty();
 			if (source instanceof User) {
 				User user = (User) source;
-				if (property instanceof User.Property) {
-					switch ((User.Property) property) {
-						case FIRST_NAME:
-							mUserViewOne.setFirstName(user.getFirstName());
-							break;
-						case LAST_NAME:
-							mUserViewOne.setLastName(user.getLastName());
-							break;
-						case USERNAME:
-							mUserViewOne.setUsername(user.getUsername());
-							break;
-						case ACTIVE:
-							mUserViewOne.setActive(user.isActive());
-							break;
-					}
-				} else if (property instanceof BaseVO.Property) {
-					switch ((BaseVO.Property) property) {
-						case UPDATED_AT:
-							mUserViewOne.setUpdatedAt(user.getUpdatedAt());
-					}
+				String property = event.getProperty();
+				switch (property) {
+					case User.FIRST_NAME:
+						mUserViewOne.setFirstName(user.getFirstName());
+						break;
+					case User.LAST_NAME:
+						mUserViewOne.setLastName(user.getLastName());
+						break;
+					case User.USERNAME:
+						mUserViewOne.setUsername(user.getUsername());
+						break;
+					case User.ACTIVE:
+						mUserViewOne.setActive(user.isActive());
+						break;
+					case BaseVO.UPDATED_AT:
+						mUserViewOne.setUpdatedAt(user.getUpdatedAt());
 				}
 			}
 		}
@@ -113,12 +111,17 @@ public class UserPresenterOne extends Presenter {
 			mUser.setActive(active);
 	}
 
-	public static interface UserViewOne extends IView {
-		public void setFirstName(String firstName);
-		public void setLastName(String lastName);
-		public void setUsername(String username);
-		public void setActive(boolean active);
-		public void setCreatedAt(Date createdAt);
-		public void setUpdatedAt(Date updatedAt);
-	}
+public static interface UserViewOne extends IView {
+	public void setFirstName(String firstName);
+
+	public void setLastName(String lastName);
+
+	public void setUsername(String username);
+
+	public void setActive(boolean active);
+
+	public void setCreatedAt(Date createdAt);
+
+	public void setUpdatedAt(Date updatedAt);
+}
 }

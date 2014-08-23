@@ -6,6 +6,11 @@ import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 
 public class User extends BaseVO {
 
+	public static final String FIRST_NAME = "FIRST_NAME";
+	public static final String LAST_NAME = "LAST_NAME";
+	public static final String USERNAME = "USERNAME";
+	public static final String ACTIVE = "ACTIVE";
+
 	private String mFirstName;
 	private String mLastName;
 	private String mUsername;
@@ -25,7 +30,7 @@ public class User extends BaseVO {
 
 	public void setFirstName(String firstName) {
 		if (!TextUtils.equals(mFirstName, firstName)) {
-			UpdateEvent event = new UpdateEvent(this, Property.FIRST_NAME, mFirstName, firstName);
+			UpdateEvent event = new UpdateEvent(this, FIRST_NAME, mFirstName, firstName);
 			mFirstName = firstName;
 			notifyUpdated(event);
 		}
@@ -37,7 +42,7 @@ public class User extends BaseVO {
 
 	public void setLastName(String lastName) {
 		if (!TextUtils.equals(mLastName, lastName)) {
-			UpdateEvent event = new UpdateEvent(this, Property.LAST_NAME, mLastName, lastName);
+			UpdateEvent event = new UpdateEvent(this, LAST_NAME, mLastName, lastName);
 			mLastName = lastName;
 			notifyUpdated(event);
 		}
@@ -49,7 +54,7 @@ public class User extends BaseVO {
 
 	public void setUsername(String username) {
 		if (!TextUtils.equals(mUsername, username)) {
-			UpdateEvent event = new UpdateEvent(this, Property.USERNAME, mUsername, username);
+			UpdateEvent event = new UpdateEvent(this, USERNAME, mUsername, username);
 			mUsername = username;
 			notifyUpdated(event);
 		}
@@ -61,7 +66,7 @@ public class User extends BaseVO {
 
 	public void setActive(boolean active) {
 		if (mActive != active) {
-			UpdateEvent event = new UpdateEvent(this, Property.ACTIVE, mActive, active);
+			UpdateEvent event = new UpdateEvent(this, ACTIVE, mActive, active);
 			mActive = active;
 			notifyUpdated(event);
 		}
@@ -69,12 +74,5 @@ public class User extends BaseVO {
 
 	public String getFullName() {
 		return String.format("%s %s", mFirstName, mLastName);
-	}
-
-	public static enum Property {
-		FIRST_NAME,
-		LAST_NAME,
-		USERNAME,
-		ACTIVE
 	}
 }

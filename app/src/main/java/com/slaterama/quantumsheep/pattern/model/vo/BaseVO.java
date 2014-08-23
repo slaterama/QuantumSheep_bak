@@ -8,6 +8,10 @@ import java.util.Date;
 
 public abstract class BaseVO extends ModelEntity {
 
+	public static final String ID = "ID";
+	public static final String CREATED_AT = "CREATED_AT";
+	public static final String UPDATED_AT = "UPDATED_AT";
+
 	protected int mId;
 	protected Date mCreatedAt;
 	protected Date mUpdatedAt;
@@ -38,16 +42,10 @@ public abstract class BaseVO extends ModelEntity {
 	protected void refreshUpdatedAt() {
 		Date updatedAt = new Date();
 		if (!ObjectsCompat.getInstance().equals(mUpdatedAt, updatedAt)) {
-			UpdateEvent event = new UpdateEvent(this, Property.UPDATED_AT, mUpdatedAt, updatedAt);
+			UpdateEvent event = new UpdateEvent(this, UPDATED_AT, mUpdatedAt, updatedAt);
 			mUpdatedAt = updatedAt;
 			setChanged();
 			notifyObservers(event);
 		}
-	}
-
-	public static enum Property {
-		ID,
-		CREATED_AT,
-		UPDATED_AT
 	}
 }

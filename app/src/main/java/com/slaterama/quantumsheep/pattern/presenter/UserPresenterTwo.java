@@ -43,30 +43,27 @@ public class UserPresenterTwo extends Presenter {
 
 		if (data instanceof RetrieveEvent) {
 			RetrieveEvent event = (RetrieveEvent) data;
-			mUser = (User) event.getSource();
-			updateView(mUser);
+			if (event.getSource() instanceof User) {
+				User user = (User) event.getSource();
+				mUser = (User) event.getSource();
+				updateView(mUser);
+			}
 		} else if (data instanceof UpdateEvent) {
 			UpdateEvent event = (UpdateEvent) data;
-			Object source = event.getSource();
-			Object property = event.getProperty();
-			if (source instanceof User) {
-				User user = (User) source;
-				if (property instanceof User.Property) {
-					switch ((User.Property) property) {
-						case FIRST_NAME:
-						case LAST_NAME:
-							mUserViewTwo.setFullName(user.getFullName());
-							break;
-						case ACTIVE:
-							mUserViewTwo.setActive(user.isActive());
-							break;
-					}
-				} else if (property instanceof BaseVO.Property) {
-					switch ((BaseVO.Property) property) {
-						case UPDATED_AT:
-							mUserViewTwo.setUpdatedAt(user.getUpdatedAt());
-							break;
-					}
+			if (event.getSource() instanceof User) {
+				User user = (User) event.getSource();
+				String property = event.getProperty();
+				switch (property) {
+					case User.FIRST_NAME:
+					case User.LAST_NAME:
+						mUserViewTwo.setFullName(user.getFullName());
+						break;
+					case User.ACTIVE:
+						mUserViewTwo.setActive(user.isActive());
+						break;
+					case BaseVO.UPDATED_AT:
+						mUserViewTwo.setUpdatedAt(user.getUpdatedAt());
+						break;
 				}
 			}
 		}
