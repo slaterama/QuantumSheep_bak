@@ -1,16 +1,11 @@
 package com.slaterama.quantumsheep.pattern.model.vo;
 
-import com.slaterama.qslib.alpha.app.pattern.ModelEntity;
-import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
+import com.slaterama.qslib.alpha.app.pattern.ObservableVO;
 import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
 
 import java.util.Date;
 
-public abstract class BaseVO extends ModelEntity {
-
-	public static final String ID = "ID";
-	public static final String CREATED_AT = "CREATED_AT";
-	public static final String UPDATED_AT = "UPDATED_AT";
+public abstract class BaseVO extends ObservableVO {
 
 	protected int mId;
 	protected Date mCreatedAt;
@@ -34,18 +29,19 @@ public abstract class BaseVO extends ModelEntity {
 	}
 
 	@Override
-	protected void notifyUpdated(UpdateEvent event) {
-		super.notifyUpdated(event);
-		refreshUpdatedAt();
-	}
-
-	protected void refreshUpdatedAt() {
+	public void onUpdated(String property, Object oldValue, Object newValue) {
+		super.onUpdated(property, oldValue, newValue);
 		Date updatedAt = new Date();
 		if (!ObjectsCompat.getInstance().equals(mUpdatedAt, updatedAt)) {
-			UpdateEvent event = new UpdateEvent(this, UPDATED_AT, mUpdatedAt, updatedAt);
+			Date oldUpdatedAt = mUpdatedAt;
 			mUpdatedAt = updatedAt;
-			setChanged();
-			notifyObservers(event);
+			notifyUpdated(Property.UPDATED_AT.name(), oldUpdatedAt, updatedAt, false);
 		}
+	}
+
+	public static enum Property {
+		ID,
+		CREATED_AT,
+		UPDATED_AT
 	}
 }

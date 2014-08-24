@@ -48,6 +48,7 @@ public class MvpFragmentTwo extends Fragment
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mMyMvp = (MyMvp) PatternManager.newInstance(getActivity()).getPattern(PATTERN_ID);
@@ -61,6 +62,7 @@ public class MvpFragmentTwo extends Fragment
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void onStart() {
 		super.onStart();
 		mMyMvp.registerPresenter(mPresenter);
@@ -70,6 +72,7 @@ public class MvpFragmentTwo extends Fragment
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void onStop() {
 		super.onStop();
 		mMyMvp.unregisterPresenter(mPresenter);

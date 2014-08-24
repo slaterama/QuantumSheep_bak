@@ -2,14 +2,13 @@ package com.slaterama.quantumsheep.pattern.model.vo;
 
 import android.text.TextUtils;
 
-import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
+import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class User extends BaseVO {
-
-	public static final String FIRST_NAME = "FIRST_NAME";
-	public static final String LAST_NAME = "LAST_NAME";
-	public static final String USERNAME = "USERNAME";
-	public static final String ACTIVE = "ACTIVE";
 
 	private String mFirstName;
 	private String mLastName;
@@ -30,9 +29,9 @@ public class User extends BaseVO {
 
 	public void setFirstName(String firstName) {
 		if (!TextUtils.equals(mFirstName, firstName)) {
-			UpdateEvent event = new UpdateEvent(this, FIRST_NAME, mFirstName, firstName);
+			String oldValue = mFirstName;
 			mFirstName = firstName;
-			notifyUpdated(event);
+			notifyUpdated(Property.FIRST_NAME.name(), oldValue, firstName);
 		}
 	}
 
@@ -42,9 +41,9 @@ public class User extends BaseVO {
 
 	public void setLastName(String lastName) {
 		if (!TextUtils.equals(mLastName, lastName)) {
-			UpdateEvent event = new UpdateEvent(this, LAST_NAME, mLastName, lastName);
+			String oldValue = mLastName;
 			mLastName = lastName;
-			notifyUpdated(event);
+			notifyUpdated(Property.LAST_NAME.name(), oldValue, lastName);
 		}
 	}
 
@@ -54,9 +53,9 @@ public class User extends BaseVO {
 
 	public void setUsername(String username) {
 		if (!TextUtils.equals(mUsername, username)) {
-			UpdateEvent event = new UpdateEvent(this, USERNAME, mUsername, username);
+			String oldValue = mUsername;
 			mUsername = username;
-			notifyUpdated(event);
+			notifyUpdated(Property.USERNAME.name(), oldValue, username);
 		}
 	}
 
@@ -66,13 +65,20 @@ public class User extends BaseVO {
 
 	public void setActive(boolean active) {
 		if (mActive != active) {
-			UpdateEvent event = new UpdateEvent(this, ACTIVE, mActive, active);
+			Boolean oldValue = mActive;
 			mActive = active;
-			notifyUpdated(event);
+			notifyUpdated(Property.ACTIVE.name(), oldValue, active);
 		}
 	}
 
 	public String getFullName() {
 		return String.format("%s %s", mFirstName, mLastName);
+	}
+
+	public static enum Property {
+		FIRST_NAME,
+		LAST_NAME,
+		USERNAME,
+		ACTIVE;
 	}
 }

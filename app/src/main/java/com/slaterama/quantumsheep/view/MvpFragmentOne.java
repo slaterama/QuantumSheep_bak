@@ -87,6 +87,7 @@ public class MvpFragmentOne extends Fragment
 			throw new IllegalStateException(String.format("Expecting %s pattern with ID %d",
 					MyMvp.class.getSimpleName(), PATTERN_ID));
 		mPresenter = new UserPresenterOne(this);
+
 		mMyMvp.registerPresenter(mPresenter);
 		if (mUserId >= 0)
 			mPresenter.loadUser(mUserId);
