@@ -3,7 +3,6 @@ package com.slaterama.quantumsheep.pattern.presenter;
 import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
 import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 import com.slaterama.qslib.utils.LogEx;
-import com.slaterama.quantumsheep.pattern.model.vo.MyVO;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 import com.slaterama.quantumsheep.pattern.presenter.UserPresenterOne.UserViewOne;
 
@@ -34,7 +33,6 @@ public class UserPresenterOne extends MyPresenter<UserViewOne> {
 			UpdateEvent event = (UpdateEvent) data;
 			User user = (User) event.getSource();
 			String propertyName = event.getPropertyName();
-
 			try {
 				User.Property property = User.Property.valueOf(propertyName);
 				switch (property) {
@@ -50,21 +48,11 @@ public class UserPresenterOne extends MyPresenter<UserViewOne> {
 					case ACTIVE:
 						mView.setActive(user.isActive());
 						break;
-				}
-				return;
-			} catch (IllegalArgumentException e) {
-				if (LogEx.isLoggable(LogEx.INFO))
-					LogEx.i(e.getMessage());
-			}
-
-			try {
-				MyVO.Property property = MyVO.Property.valueOf(propertyName);
-				switch (property) {
 					case UPDATED_AT:
 						mView.setUpdatedAt(user.getUpdatedAt());
 						break;
 				}
-				return;
+				// return;
 			} catch (IllegalArgumentException e) {
 				if (LogEx.isLoggable(LogEx.INFO))
 					LogEx.i(e.getMessage());

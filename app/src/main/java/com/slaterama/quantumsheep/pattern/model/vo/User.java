@@ -70,9 +70,12 @@ public class User extends MyVO {
 	}
 
 	public static enum Property {
+		ID,
 		FIRST_NAME,
 		LAST_NAME,
 		USERNAME,
-		ACTIVE
+		ACTIVE,
+		CREATED_AT,
+		UPDATED_AT
 	}
 }
