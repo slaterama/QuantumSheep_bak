@@ -20,6 +20,7 @@ public class UserPresenterOne extends MyPresenter<UserViewOne> {
 	@Override
 	public void update(Observable observable, Object data) {
 
+		// TODO Make sure mView is not null
 		// TODO Make sure this is the user/userID we WANT first
 
 		if (data instanceof RetrieveEvent) {
