@@ -2,12 +2,6 @@ package com.slaterama.quantumsheep.pattern.model.vo;
 
 import android.text.TextUtils;
 
-import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 public class User extends BaseVO {
 
 	private String mFirstName;
@@ -79,6 +73,6 @@ public class User extends BaseVO {
 		FIRST_NAME,
 		LAST_NAME,
 		USERNAME,
-		ACTIVE;
+		ACTIVE
 	}
 }
