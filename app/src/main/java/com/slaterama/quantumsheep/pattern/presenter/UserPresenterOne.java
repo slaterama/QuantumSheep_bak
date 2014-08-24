@@ -2,7 +2,9 @@ package com.slaterama.quantumsheep.pattern.presenter;
 
 import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
 import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
+import com.slaterama.qslib.alpha.app.pattern.mvp.Presenter;
 import com.slaterama.qslib.utils.LogEx;
+import com.slaterama.quantumsheep.pattern.model.MyModel;
 import com.slaterama.quantumsheep.pattern.model.vo.BaseVO;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 
@@ -11,7 +13,7 @@ import java.util.Observable;
 
 import com.slaterama.quantumsheep.pattern.presenter.UserPresenterOne.UserViewOne;
 
-public class UserPresenterOne extends BasePresenter<UserViewOne> {
+public class UserPresenterOne extends Presenter<MyModel, UserViewOne> {
 
 	protected User mUser;
 
