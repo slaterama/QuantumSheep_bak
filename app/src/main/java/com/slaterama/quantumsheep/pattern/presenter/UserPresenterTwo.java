@@ -2,17 +2,15 @@ package com.slaterama.quantumsheep.pattern.presenter;
 
 import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
 import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
-import com.slaterama.qslib.alpha.app.pattern.mvp.Presenter;
 import com.slaterama.qslib.utils.LogEx;
-import com.slaterama.quantumsheep.pattern.model.MyModel;
-import com.slaterama.quantumsheep.pattern.model.vo.BaseVO;
+import com.slaterama.quantumsheep.pattern.model.vo.MyVO;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 import com.slaterama.quantumsheep.pattern.presenter.UserPresenterTwo.UserViewTwo;
 
 import java.util.Date;
 import java.util.Observable;
 
-public class UserPresenterTwo extends Presenter<MyModel, UserViewTwo> {
+public class UserPresenterTwo extends MyPresenter<UserViewTwo> {
 
 	protected User mUser;
 
@@ -55,7 +53,7 @@ public class UserPresenterTwo extends Presenter<MyModel, UserViewTwo> {
 			}
 
 			try {
-				BaseVO.Property baseProperty = BaseVO.Property.valueOf(propertyName);
+				MyVO.Property baseProperty = MyVO.Property.valueOf(propertyName);
 				switch (baseProperty) {
 					case UPDATED_AT:
 						mView.setUpdatedAt(user.getUpdatedAt());
