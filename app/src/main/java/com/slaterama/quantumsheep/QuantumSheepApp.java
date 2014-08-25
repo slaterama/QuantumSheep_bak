@@ -9,6 +9,7 @@ import com.slaterama.qslib.utils.LogEx;
 	Next steps:
 	1. Figure out how to deal with the redundant "registerPresenter" in Fragments
 	2. Build an "AcceptingEditText" class somehow, with "acceptText()" type functionality
+	3. Introduce some sort of "State" into presenters. (Avoiding double-click processing etc.)
  */
 
 public class QuantumSheepApp extends Application {

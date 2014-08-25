@@ -122,20 +122,20 @@ public class MvpFragmentOne extends Fragment
 		LogEx.d(String.format("editText=%s, text=%s", editText, String.valueOf(text)));
 		switch (editText.getId()) {
 			case R.id.fragment_mvp_one_first_name:
-				mPresenter.setUserFirstName(mUserId, String.valueOf(text));
+				mPresenter.setUserFirstName(String.valueOf(text));
 				break;
 			case R.id.fragment_mvp_one_last_name:
-				mPresenter.setUserLastName(mUserId, String.valueOf(text));
+				mPresenter.setUserLastName(String.valueOf(text));
 				break;
 			case R.id.fragment_mvp_one_username:
-				mPresenter.setUsername(mUserId, String.valueOf(text));
+				mPresenter.setUsername(String.valueOf(text));
 				break;
 		}
 	}
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		mPresenter.setUserActive(mUserId, isChecked);
+		mPresenter.setUserActive(isChecked);
 	}
 
 	// EmployeeViewOne implementation

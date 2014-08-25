@@ -1,74 +1,49 @@
 package com.slaterama.quantumsheep.pattern.presenter;
 
-import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
 import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 import com.slaterama.quantumsheep.pattern.presenter.UserPresenterOne.UserViewOne;
 
 import java.util.Date;
-import java.util.Observable;
 
-public class UserPresenterOne extends MyPresenter<UserViewOne> {
-
-	protected User mUser;
+public class UserPresenterOne extends MyUserPresenter<UserViewOne> {
 
 	public UserPresenterOne(UserViewOne view) {
 		super(view);
 	}
 
 	@Override
-	public void update(Observable observable, Object data) {
-
-		// TODO Make sure mView is not null
-		// TODO Make sure this is the user/userID we WANT first
-
-		if (data instanceof RetrieveEvent) {
-			RetrieveEvent event = (RetrieveEvent) data;
-			mUser = (User) event.getSource();
-			updateView(mUser);
-			return;
-		}
-
-		if (data instanceof UpdateEvent) {
-			UpdateEvent event = (UpdateEvent) data;
-			User user = (User) event.getSource();
-			String propertyName = event.getPropertyName();
-			try {
-				User.Property property = User.Property.valueOf(propertyName);
-				switch (property) {
-					case FIRST_NAME:
-						mView.setFirstName(user.getFirstName());
-						break;
-					case LAST_NAME:
-						mView.setLastName(user.getLastName());
-						break;
-					case USERNAME:
-						mView.setUsername(user.getUsername());
-						break;
-					case ACTIVE:
-						mView.setActive(user.isActive());
-						break;
-					case UPDATED_AT:
-						mView.setUpdatedAt(user.getUpdatedAt());
-						break;
-				}
-				// return;
-			} catch (IllegalArgumentException e) {
-				if (LogEx.isLoggable(LogEx.INFO))
-					LogEx.i(e.getMessage());
+	public void onUserUpdated(UpdateEvent event, User user) {
+		String propertyName = event.getPropertyName();
+		try {
+			User.Property property = User.Property.valueOf(propertyName);
+			switch (property) {
+				case FIRST_NAME:
+					mView.setFirstName(user.getFirstName());
+					break;
+				case LAST_NAME:
+					mView.setLastName(user.getLastName());
+					break;
+				case USERNAME:
+					mView.setUsername(user.getUsername());
+					break;
+				case ACTIVE:
+					mView.setActive(user.isActive());
+					break;
+				case UPDATED_AT:
+					mView.setUpdatedAt(user.getUpdatedAt());
+					break;
 			}
+		} catch (IllegalArgumentException e) {
+			if (LogEx.isLoggable(LogEx.INFO))
+				LogEx.i(e.getMessage());
 		}
 	}
 
-	public void loadUser(int id) {
-		mUser = mModel.getUser(id);
-		if (mUser != null)
-			updateView(mUser);
-	}
-
+	@Override
 	protected void updateView(User user) {
-		if (user != null && mView != null) {
+		if (mView != null && user != null) {
 			mView.setFirstName(user.getFirstName());
 			mView.setLastName(user.getLastName());
 			mView.setUsername(user.getUsername());
@@ -78,22 +53,22 @@ public class UserPresenterOne extends MyPresenter<UserViewOne> {
 		}
 	}
 
-	public void setUserFirstName(int id, String firstName) {
+	public void setUserFirstName(String firstName) {
 		if (mUser != null)
 			mUser.setFirstName(firstName);
 	}
 
-	public void setUserLastName(int id, String lastName) {
+	public void setUserLastName(String lastName) {
 		if (mUser != null)
 			mUser.setLastName(lastName);
 	}
 
-	public void setUsername(int id, String username) {
+	public void setUsername(String username) {
 		if (mUser != null)
 			mUser.setUsername(username);
 	}
 
-	public void setUserActive(int id, boolean active) {
+	public void setUserActive(boolean active) {
 		if (mUser != null)
 			mUser.setActive(active);
 	}
