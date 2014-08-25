@@ -28,10 +28,11 @@ import static com.slaterama.quantumsheep.view.MvpActivity.PATTERN_ID;
  * A simple {@link Fragment} subclass.
  */
 public class MvpFragmentOne extends Fragment
-		implements
-		CompoundButton.OnCheckedChangeListener, UserViewOne {
-	private static final String ARG_USER_ID = "userId";
+		implements CompoundButton.OnCheckedChangeListener, UserViewOne {
 
+	private final static String STATE_USER_LOAD_REQUESTED = "userLoadRequested";
+
+	private boolean mUserLoadRequested = false;
 	private int mUserId = -1;
 
 	private EditText mFirstNameEdit;
@@ -44,16 +45,11 @@ public class MvpFragmentOne extends Fragment
 	private MyMvp mMyMvp;
 	private UserPresenterOne mPresenter;
 
-	public MvpFragmentOne() {
-		// Required empty public constructor
-	}
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (getArguments() != null) {
-			mUserId = getArguments().getInt(ARG_USER_ID);
-		}
+		if (savedInstanceState != null)
+			mUserLoadRequested = savedInstanceState.getBoolean(STATE_USER_LOAD_REQUESTED, false);
 	}
 
 	@Override
@@ -87,19 +83,22 @@ public class MvpFragmentOne extends Fragment
 			throw new IllegalStateException(String.format("Expecting %s pattern with ID %d",
 					MyMvp.class.getSimpleName(), PATTERN_ID));
 		mPresenter = new UserPresenterOne(this);
-
-		mMyMvp.registerPresenter(mPresenter);
-		if (mUserId >= 0)
-			mPresenter.loadUser(mUserId);
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
 		mMyMvp.registerPresenter(mPresenter);
+		if (!mUserLoadRequested) {
+			mPresenter.loadUser(mUserId);
+			mUserLoadRequested = true;
+		}
+	}
 
-		// TODO I don't like registering the presenter both in onActivityCreated and here.
-		// But I need to load user once, AFTER registering.
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putBoolean(STATE_USER_LOAD_REQUESTED, mUserLoadRequested);
 	}
 
 	@Override

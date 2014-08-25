@@ -23,6 +23,10 @@ import static com.slaterama.quantumsheep.view.MvpActivity.PATTERN_ID;
  */
 public class MvpFragmentTwo extends Fragment
 		implements UserViewTwo {
+
+	private final static String STATE_USER_LOAD_REQUESTED = "userLoadRequested";
+
+	private boolean mUserLoadRequested = false;
 	private int mUserId = -1;
 
 	private TextView mFullNameView;
@@ -32,7 +36,14 @@ public class MvpFragmentTwo extends Fragment
 	private MyMvp mMyMvp;
 	private UserPresenterTwo mPresenter;
 
-    @Override
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		if (savedInstanceState != null)
+			mUserLoadRequested = savedInstanceState.getBoolean(STATE_USER_LOAD_REQUESTED, false);
+	}
+
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -48,7 +59,6 @@ public class MvpFragmentTwo extends Fragment
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mMyMvp = (MyMvp) PatternManager.newInstance(getActivity()).getPattern(PATTERN_ID);
@@ -57,22 +67,25 @@ public class MvpFragmentTwo extends Fragment
 					MyMvp.class.getSimpleName(), PATTERN_ID));
 		mPresenter = new UserPresenterTwo(this);
 		mMyMvp.registerPresenter(mPresenter);
-		if (mUserId >= 0)
-			mPresenter.loadUser(mUserId);
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void onStart() {
 		super.onStart();
 		mMyMvp.registerPresenter(mPresenter);
-
-		// TODO I don't like registering the presenter both in onActivityCreated and here.
-		// But I need to load user once, AFTER registering.
+		if (!mUserLoadRequested) {
+			mPresenter.loadUser(mUserId);
+			mUserLoadRequested = true;
+		}
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putBoolean(STATE_USER_LOAD_REQUESTED, mUserLoadRequested);
+	}
+
+	@Override
 	public void onStop() {
 		super.onStop();
 		mMyMvp.unregisterPresenter(mPresenter);
