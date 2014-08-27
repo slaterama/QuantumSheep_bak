@@ -7,9 +7,8 @@ import com.slaterama.qslib.utils.LogEx;
 
 /* TODO
 	Next steps:
-	1. Build an "AcceptingEditText" class somehow, with "acceptText()" type functionality
-	2. Introduce some sort of "State" into presenters. (Avoiding double-click processing etc.)
-	3. In Model, make some sort of "loading" indicator so two objects requesting the same
+	1. Introduce some sort of "State" into presenters. (Avoiding double-click processing etc.)
+	2. In Model, make some sort of "loading" indicator so two objects requesting the same
 	   entity don't request to load it twice
  */
 
