@@ -2,7 +2,7 @@ package com.slaterama.quantumsheep.pattern.model.vo;
 
 import android.text.TextUtils;
 
-public class User extends MyVO {
+public class User extends AbstractVO {
 
 	private String mFirstName;
 	private String mLastName;

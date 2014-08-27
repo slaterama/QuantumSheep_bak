@@ -5,13 +5,13 @@ import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
 
 import java.util.Date;
 
-public abstract class MyVO extends ObservableVO {
+public abstract class AbstractVO extends ObservableVO {
 
 	protected int mId;
 	protected Date mCreatedAt;
 	protected Date mUpdatedAt;
 
-	public MyVO(int id) {
+	public AbstractVO(int id) {
 		mId = id;
 		mCreatedAt = mUpdatedAt = new Date();
 	}
