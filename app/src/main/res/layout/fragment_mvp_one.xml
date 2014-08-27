@@ -22,7 +22,8 @@
 		android:layout_marginLeft="@dimen/horizontal_margin_between_components"
 		android:layout_toRightOf="@id/fragment_mvp_one_user_id_label"
 		android:layout_toEndOf="@id/fragment_mvp_one_user_id_label"
-		android:layout_alignBaseline="@id/fragment_mvp_one_user_id_label"/>
+		android:layout_alignBaseline="@id/fragment_mvp_one_user_id_label"
+		tools:text="12345"/>
 
 	<View
 		android:id="@+id/center"
@@ -51,7 +52,11 @@
 		android:layout_alignStart="@id/fragment_mvp_one_user_first_name_label"
 		android:layout_alignRight="@id/fragment_mvp_one_user_first_name_label"
 		android:layout_alignEnd="@id/fragment_mvp_one_user_first_name_label"
-		android:layout_below="@id/fragment_mvp_one_user_first_name_label"/>
+		android:layout_below="@id/fragment_mvp_one_user_first_name_label"
+		android:hint="@string/fragment_mvp_one_user_first_name_hint"
+		android:singleLine="true"
+		android:inputType="textCapWords"
+		android:imeOptions="actionNext"/>
 
 	<TextView
 		android:id="@+id/fragment_mvp_one_user_last_name_label"
@@ -72,7 +77,11 @@
 		android:layout_alignStart="@id/fragment_mvp_one_user_last_name_label"
 		android:layout_alignRight="@id/fragment_mvp_one_user_last_name_label"
 		android:layout_alignEnd="@id/fragment_mvp_one_user_last_name_label"
-		android:layout_below="@id/fragment_mvp_one_user_last_name_label"/>
+		android:layout_below="@id/fragment_mvp_one_user_last_name_label"
+		android:hint="@string/fragment_mvp_one_user_last_name_hint"
+		android:singleLine="true"
+		android:inputType="textCapWords"
+		android:imeOptions="actionNext"/>
 
 	<TextView
 		android:id="@+id/fragment_mvp_one_username_label"
@@ -94,7 +103,11 @@
 		android:layout_alignStart="@id/fragment_mvp_one_username_label"
 		android:layout_alignRight="@id/fragment_mvp_one_username_label"
 		android:layout_alignEnd="@id/fragment_mvp_one_username_label"
-		android:layout_below="@id/fragment_mvp_one_username_label"/>
+		android:layout_below="@id/fragment_mvp_one_username_label"
+		android:hint="@string/fragment_mvp_one_user_username_hint"
+		android:singleLine="true"
+		android:inputType="text"
+		android:imeOptions="actionNext"/>
 
 	<CheckBox
 		android:id="@+id/fragment_mvp_one_status"

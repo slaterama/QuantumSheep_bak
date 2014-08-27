@@ -38,6 +38,10 @@
 	<string name="fragment_mvp_one_user_created_at_label">Created At:</string>
 	<string name="fragment_mvp_one_user_updated_at_label">Updated At:</string>
 
+	<string name="fragment_mvp_one_user_first_name_hint">Enter your first name</string>
+	<string name="fragment_mvp_one_user_last_name_hint">Enter your last name</string>
+	<string name="fragment_mvp_one_user_username_hint">Enter your username</string>
+
 	<string name="fragment_mvp_two_user_full_name_label">Full Name:</string>
 	<string name="fragment_mvp_two_user_status_label">Status:</string>
 	<string name="fragment_mvp_two_user_updated_at_label">Updated At:</string>

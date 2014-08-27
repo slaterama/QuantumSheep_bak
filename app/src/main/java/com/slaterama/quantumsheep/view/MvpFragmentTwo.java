@@ -24,9 +24,6 @@ import static com.slaterama.quantumsheep.view.MvpActivity.PATTERN_ID;
 public class MvpFragmentTwo extends Fragment
 		implements UserViewTwo {
 
-	private final static String STATE_USER_LOAD_REQUESTED = "userLoadRequested";
-
-	private boolean mUserLoadRequested = false;
 	private int mUserId = -1;
 
 	private TextView mFullNameView;
@@ -35,13 +32,6 @@ public class MvpFragmentTwo extends Fragment
 
 	private MyMvp mMyMvp;
 	private UserPresenterTwo mPresenter;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		if (savedInstanceState != null)
-			mUserLoadRequested = savedInstanceState.getBoolean(STATE_USER_LOAD_REQUESTED, false);
-	}
 
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,16 +63,8 @@ public class MvpFragmentTwo extends Fragment
 	public void onStart() {
 		super.onStart();
 		mMyMvp.registerPresenter(mPresenter);
-		if (!mUserLoadRequested) {
-			mPresenter.loadUser(mUserId);
-			mUserLoadRequested = true;
-		}
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putBoolean(STATE_USER_LOAD_REQUESTED, mUserLoadRequested);
+		if (!mMyMvp.isPresenterRegistered(mPresenter))
+			mMyMvp.registerPresenter(mPresenter);
 	}
 
 	@Override

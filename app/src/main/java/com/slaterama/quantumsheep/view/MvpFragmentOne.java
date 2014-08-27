@@ -3,8 +3,7 @@ package com.slaterama.quantumsheep.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.slaterama.qslib.alpha.support.v4.app.PatternManager;
-import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.R;
 import com.slaterama.quantumsheep.pattern.MyMvp;
 import com.slaterama.quantumsheep.pattern.presenter.UserPresenterOne;
@@ -28,11 +26,10 @@ import static com.slaterama.quantumsheep.view.MvpActivity.PATTERN_ID;
  * A simple {@link Fragment} subclass.
  */
 public class MvpFragmentOne extends Fragment
-		implements CompoundButton.OnCheckedChangeListener, UserViewOne {
+		implements View.OnFocusChangeListener,
+		TextView.OnEditorActionListener,
+		CompoundButton.OnCheckedChangeListener, UserViewOne {
 
-	private final static String STATE_USER_LOAD_REQUESTED = "userLoadRequested";
-
-	private boolean mUserLoadRequested = false;
 	private int mUserId = -1;
 
 	private EditText mFirstNameEdit;
@@ -44,13 +41,6 @@ public class MvpFragmentOne extends Fragment
 
 	private MyMvp mMyMvp;
 	private UserPresenterOne mPresenter;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		if (savedInstanceState != null)
-			mUserLoadRequested = savedInstanceState.getBoolean(STATE_USER_LOAD_REQUESTED, false);
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,9 +59,12 @@ public class MvpFragmentOne extends Fragment
 		mCreatedAtView = (TextView) view.findViewById(R.id.fragment_mvp_one_user_created_at);
 		mUpdatedAtView = (TextView) view.findViewById(R.id.fragment_mvp_one_user_updated_at);
 
-		mFirstNameEdit.addTextChangedListener(new EditTextWatcher(mFirstNameEdit));
-		mLastNameEdit.addTextChangedListener(new EditTextWatcher(mLastNameEdit));
-		mUsernameEdit.addTextChangedListener(new EditTextWatcher(mUsernameEdit));
+		mFirstNameEdit.setOnFocusChangeListener(this);
+		mFirstNameEdit.setOnEditorActionListener(this);
+		mLastNameEdit.setOnFocusChangeListener(this);
+		mLastNameEdit.setOnEditorActionListener(this);
+		mUsernameEdit.setOnFocusChangeListener(this);
+		mUsernameEdit.setOnEditorActionListener(this);
 		mActiveCbx.setOnCheckedChangeListener(this);
 	}
 
@@ -83,22 +76,15 @@ public class MvpFragmentOne extends Fragment
 			throw new IllegalStateException(String.format("Expecting %s pattern with ID %d",
 					MyMvp.class.getSimpleName(), PATTERN_ID));
 		mPresenter = new UserPresenterOne(this);
+		mMyMvp.registerPresenter(mPresenter);
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
 		mMyMvp.registerPresenter(mPresenter);
-		if (!mUserLoadRequested) {
-			mPresenter.loadUser(mUserId);
-			mUserLoadRequested = true;
-		}
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putBoolean(STATE_USER_LOAD_REQUESTED, mUserLoadRequested);
+		if (!mMyMvp.isPresenterRegistered(mPresenter))
+			mMyMvp.registerPresenter(mPresenter);
 	}
 
 	@Override
@@ -117,19 +103,34 @@ public class MvpFragmentOne extends Fragment
 
 	// Interaction listeners
 
-	public void onEditTextChanged(EditText editText, CharSequence text) {
-		LogEx.d(String.format("editText=%s, text=%s", editText, String.valueOf(text)));
-		switch (editText.getId()) {
+	@Override
+	public void onFocusChange(View view, boolean hasFocus) {
+		if (hasFocus) {
+			switch (view.getId()) {
+				case R.id.fragment_mvp_one_first_name:
+				case R.id.fragment_mvp_one_last_name:
+				case R.id.fragment_mvp_one_username:
+					EditText editText = (EditText) view;
+					editText.setSelection(editText.getText().length());
+					break;
+			}
+		}
+	}
+
+	@Override
+	public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+		switch (view.getId()) {
 			case R.id.fragment_mvp_one_first_name:
-				mPresenter.setUserFirstName(String.valueOf(text));
+				mPresenter.setUserFirstName(mFirstNameEdit.getText().toString());
 				break;
 			case R.id.fragment_mvp_one_last_name:
-				mPresenter.setUserLastName(String.valueOf(text));
+				mPresenter.setUserLastName(mLastNameEdit.getText().toString());
 				break;
 			case R.id.fragment_mvp_one_username:
-				mPresenter.setUsername(String.valueOf(text));
+				mPresenter.setUsername(mUsernameEdit.getText().toString());
 				break;
 		}
+		return false;
 	}
 
 	@Override
@@ -167,31 +168,5 @@ public class MvpFragmentOne extends Fragment
 	@Override
 	public void setUpdatedAt(Date updatedAt) {
 		mUpdatedAtView.setText(String.valueOf(updatedAt));
-	}
-
-	// Classes
-
-	protected class EditTextWatcher implements TextWatcher {
-
-		EditText mEditText;
-
-		public EditTextWatcher(EditText editText) {
-			mEditText = editText;
-		}
-
-		@Override
-		public void beforeTextChanged(CharSequence text, int start, int count, int after) {
-
-		}
-
-		@Override
-		public void onTextChanged(CharSequence text, int start, int before, int count) {
-			MvpFragmentOne.this.onEditTextChanged(mEditText, text);
-		}
-
-		@Override
-		public void afterTextChanged(Editable text) {
-
-		}
 	}
 }
