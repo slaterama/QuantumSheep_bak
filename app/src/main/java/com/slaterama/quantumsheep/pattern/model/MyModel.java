@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.SparseArray;
 
 import com.slaterama.qslib.alpha.app.pattern.Model;
+import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;
 import com.slaterama.qslib.utils.LogEx;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 
@@ -16,11 +17,11 @@ public class MyModel extends Model {
 		mUsers = new SparseArray<>();
 
 		User user = new User(1, "Scott", "Slater", "slaterama", true);
-		user.addObserver(this);
+		user.addSubscriber(this);
 		mUsers.put(user.getId(), user);
 
 		user = new User(2, "Johnny", "Appleseed", "jappleseed", false);
-		user.addObserver(this);
+		user.addSubscriber(this);
 		mUsers.put(user.getId(), user);
 	}
 
@@ -56,8 +57,8 @@ public class MyModel extends Model {
 			@Override
 			protected void onPostExecute(User user) {
 				if (user != null) {
-					user.addObserver(MyModel.this);
-					user.notifyRetrieved();
+					user.addSubscriber(MyModel.this);
+					user.notifySubscribers(new RetrieveEvent(user));
 				}
 			}
 		}.execute(id);

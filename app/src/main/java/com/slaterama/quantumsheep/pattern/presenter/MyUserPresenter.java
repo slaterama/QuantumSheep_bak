@@ -7,7 +7,6 @@ import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 
 import java.util.EventObject;
-import java.util.Observable;
 
 public abstract class MyUserPresenter<V> extends MyPresenter<V>
 		implements UserPresenter {
@@ -20,7 +19,7 @@ public abstract class MyUserPresenter<V> extends MyPresenter<V>
 	}
 
 	@Override
-	public void update(Observable observable, Object data) {
+	public void update(Object publisher, Object data) {
 		if (!(data instanceof EventObject))
 			return;
 		EventObject event = (EventObject) data;

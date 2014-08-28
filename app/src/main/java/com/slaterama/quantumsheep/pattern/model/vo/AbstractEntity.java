@@ -1,17 +1,21 @@
 package com.slaterama.quantumsheep.pattern.model.vo;
 
-import com.slaterama.qslib.alpha.app.pattern.ObservableVO;
+import com.slaterama.qslib.alpha.app.pattern.EntityObject;
+import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 import com.slaterama.qslib.utils.objectscompat.ObjectsCompat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class AbstractVO extends ObservableVO {
+public abstract class AbstractEntity extends EntityObject
+		implements Serializable {
 
 	protected int mId;
 	protected Date mCreatedAt;
 	protected Date mUpdatedAt;
 
-	public AbstractVO(int id) {
+	public AbstractEntity(int id) {
+		super();
 		mId = id;
 		mCreatedAt = mUpdatedAt = new Date();
 	}
@@ -29,13 +33,13 @@ public abstract class AbstractVO extends ObservableVO {
 	}
 
 	@Override
-	public void onUpdated(String property, Object oldValue, Object newValue) {
-		super.onUpdated(property, oldValue, newValue);
+	public void notifySubscribers(Object data) {
+		super.notifySubscribers(data);
 		Date updatedAt = new Date();
 		if (!ObjectsCompat.getInstance().equals(mUpdatedAt, updatedAt)) {
-			Date oldUpdatedAt = mUpdatedAt;
+			Date oldValue = mUpdatedAt;
 			mUpdatedAt = updatedAt;
-			notifyUpdated(Property.UPDATED_AT.name(), oldUpdatedAt, updatedAt, false);
+			super.notifySubscribers(new UpdateEvent(this, Property.UPDATED_AT.name(), oldValue, updatedAt));
 		}
 	}
 

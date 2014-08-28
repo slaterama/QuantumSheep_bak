@@ -2,7 +2,9 @@ package com.slaterama.quantumsheep.pattern.model.vo;
 
 import android.text.TextUtils;
 
-public class User extends AbstractVO {
+import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
+
+public class User extends AbstractEntity {
 
 	private String mFirstName;
 	private String mLastName;
@@ -25,7 +27,7 @@ public class User extends AbstractVO {
 		if (!TextUtils.equals(mFirstName, firstName)) {
 			String oldValue = mFirstName;
 			mFirstName = firstName;
-			notifyUpdated(Property.FIRST_NAME.name(), oldValue, firstName);
+			notifySubscribers(new UpdateEvent(this, Property.FIRST_NAME.name(), oldValue, firstName));
 		}
 	}
 
@@ -37,7 +39,7 @@ public class User extends AbstractVO {
 		if (!TextUtils.equals(mLastName, lastName)) {
 			String oldValue = mLastName;
 			mLastName = lastName;
-			notifyUpdated(Property.LAST_NAME.name(), oldValue, lastName);
+			notifySubscribers(new UpdateEvent(this, Property.LAST_NAME.name(), oldValue, lastName));
 		}
 	}
 
@@ -49,7 +51,7 @@ public class User extends AbstractVO {
 		if (!TextUtils.equals(mUsername, username)) {
 			String oldValue = mUsername;
 			mUsername = username;
-			notifyUpdated(Property.USERNAME.name(), oldValue, username);
+			notifySubscribers(new UpdateEvent(this, Property.USERNAME.name(), oldValue, username));
 		}
 	}
 
@@ -61,7 +63,7 @@ public class User extends AbstractVO {
 		if (mActive != active) {
 			Boolean oldValue = mActive;
 			mActive = active;
-			notifyUpdated(Property.ACTIVE.name(), oldValue, active);
+			notifySubscribers(new UpdateEvent(this, Property.ACTIVE.name(), oldValue, active));
 		}
 	}
 
