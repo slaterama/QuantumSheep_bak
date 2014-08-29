@@ -84,13 +84,33 @@ public class MvpFragmentTwo extends Fragment
 	// UserViewTwo implementation
 
 	@Override
+	public void setFirstName(String firstName) {
+		//  Not implemented
+	}
+
+	@Override
+	public void setLastName(String lastName) {
+		// Not implemented
+	}
+
+	@Override
 	public void setFullName(String fullName) {
 		mFullNameView.setText(fullName);
 	}
 
 	@Override
+	public void setUsername(String username) {
+		// Not implemented
+	}
+
+	@Override
 	public void setActive(boolean active) {
 		mStatusView.setText(active ? "Active" : "Inactive");
+	}
+
+	@Override
+	public void setCreatedAt(Date createdAt) {
+		// Not implemented
 	}
 
 	@Override

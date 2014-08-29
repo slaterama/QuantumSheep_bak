@@ -1,5 +1,7 @@
 package com.slaterama.quantumsheep.pattern.presenter;
 
+import android.content.Context;
+
 import com.slaterama.qslib.alpha.app.pattern.event.CreateEvent;
 import com.slaterama.qslib.alpha.app.pattern.event.DeleteEvent;
 import com.slaterama.qslib.alpha.app.pattern.event.RetrieveEvent;

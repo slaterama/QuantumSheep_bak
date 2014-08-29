@@ -2,6 +2,7 @@ package com.slaterama.quantumsheep.pattern.presenter;
 
 import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 import com.slaterama.qslib.utils.LogEx;
+import com.slaterama.quantumsheep.pattern.model.vo.IUser;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 import com.slaterama.quantumsheep.pattern.presenter.UserPresenterTwo.UserViewTwo;
 
@@ -46,11 +47,5 @@ public class UserPresenterTwo extends MyUserPresenter<UserViewTwo> {
 		}
 	}
 
-	public static interface UserViewTwo {
-		public void setFullName(String fullName);
-
-		public void setActive(boolean active);
-
-		public void setUpdatedAt(Date updatedAt);
-	}
+	public static interface UserViewTwo extends IUser {}
 }

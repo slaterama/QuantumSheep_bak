@@ -1,8 +1,14 @@
 package com.slaterama.quantumsheep.view;
 
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +38,7 @@ public class MvpFragmentOne extends Fragment
 
 	private int mUserId = -1;
 
+	private TextView mConnectivityStatusView;
 	private EditText mFirstNameEdit;
 	private EditText mLastNameEdit;
 	private EditText mUsernameEdit;
@@ -52,6 +59,7 @@ public class MvpFragmentOne extends Fragment
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		mConnectivityStatusView = (TextView) view.findViewById(R.id.fragment_mvp_one_connectivity_status);
 		mFirstNameEdit = (EditText) view.findViewById(R.id.fragment_mvp_one_first_name);
 		mLastNameEdit = (EditText) view.findViewById(R.id.fragment_mvp_one_last_name);
 		mUsernameEdit = (EditText) view.findViewById(R.id.fragment_mvp_one_username);
@@ -75,22 +83,23 @@ public class MvpFragmentOne extends Fragment
 		if (mMyMvp == null)
 			throw new IllegalStateException(String.format("Expecting %s pattern with ID %d",
 					MyMvp.class.getSimpleName(), PATTERN_ID));
-		mPresenter = new UserPresenterOne(this);
+		mPresenter = new UserPresenterOne(getActivity(), this);
 		mMyMvp.registerPresenter(mPresenter);
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		mMyMvp.registerPresenter(mPresenter);
 		if (!mMyMvp.isPresenterRegistered(mPresenter))
 			mMyMvp.registerPresenter(mPresenter);
+		mPresenter.onStart();
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
 		mMyMvp.unregisterPresenter(mPresenter);
+		mPresenter.onStop();
 	}
 
 	// Methods
@@ -151,6 +160,11 @@ public class MvpFragmentOne extends Fragment
 	}
 
 	@Override
+	public void setFullName(String fullName) {
+		// Not implemented
+	}
+
+	@Override
 	public void setUsername(String username) {
 		mUsernameEdit.setText(username);
 	}
@@ -168,5 +182,35 @@ public class MvpFragmentOne extends Fragment
 	@Override
 	public void setUpdatedAt(Date updatedAt) {
 		mUpdatedAtView.setText(String.valueOf(updatedAt));
+	}
+
+	@Override
+	public void onConnectivityChange(ConnectivityManager connectivityManager,
+									 boolean networkStatePermission, NetworkInfo activeNetworkInfo,
+									 WifiManager wifiManager, boolean wifiStatePermission,
+									 WifiInfo connectionInfo) {
+		String text;
+		int backgroundColor;
+		if (!networkStatePermission) {
+			text = "Unknown network state";
+			backgroundColor = Color.GRAY;
+		} else if (activeNetworkInfo == null) {
+			text = "No connection available";
+			backgroundColor = Color.RED;
+		} else if (activeNetworkInfo.isConnectedOrConnecting()) {
+			String subtypeName = activeNetworkInfo.getSubtypeName();
+			text = "Connected: " + activeNetworkInfo.getTypeName() +
+					(TextUtils.isEmpty(subtypeName) ? "" : " (" + activeNetworkInfo.getSubtypeName() + ")");
+			if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI
+					&& connectionInfo != null) {
+				text += " [" + String.valueOf(connectionInfo.getLinkSpeed()) + WifiInfo.LINK_SPEED_UNITS + "]";
+			}
+			backgroundColor = activeNetworkInfo.isConnected() ? Color.GREEN : Color.YELLOW;
+		} else {
+			text = "Not connected to the Internet";
+			backgroundColor = Color.RED;
+		}
+		mConnectivityStatusView.setText(text);
+		mConnectivityStatusView.setBackgroundColor(backgroundColor);
 	}
 }

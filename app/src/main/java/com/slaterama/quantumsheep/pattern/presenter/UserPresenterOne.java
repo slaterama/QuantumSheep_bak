@@ -1,16 +1,44 @@
 package com.slaterama.quantumsheep.pattern.presenter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+
 import com.slaterama.qslib.alpha.app.pattern.event.UpdateEvent;
 import com.slaterama.qslib.utils.LogEx;
+import com.slaterama.quantumsheep.pattern.model.vo.IConnectivity;
+import com.slaterama.quantumsheep.pattern.model.vo.IUser;
 import com.slaterama.quantumsheep.pattern.model.vo.User;
 import com.slaterama.quantumsheep.pattern.presenter.UserPresenterOne.UserViewOne;
 
-import java.util.Date;
-
 public class UserPresenterOne extends MyUserPresenter<UserViewOne> {
 
-	public UserPresenterOne(UserViewOne view) {
+	protected static final IntentFilter CONNECTIVITY_FILTER =
+			new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+
+	protected Context mContext;
+	protected ConnectivityReceiver mConnectivityReceiver;
+
+	public UserPresenterOne(Context context, UserViewOne view) {
 		super(view);
+		mContext = context;
+		mConnectivityReceiver = new ConnectivityReceiver(mContext);
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		mContext.registerReceiver(mConnectivityReceiver, CONNECTIVITY_FILTER);
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		mContext.unregisterReceiver(mConnectivityReceiver);
 	}
 
 	@Override
@@ -73,17 +101,37 @@ public class UserPresenterOne extends MyUserPresenter<UserViewOne> {
 			mUser.setActive(active);
 	}
 
-	public static interface UserViewOne {
-		public void setFirstName(String firstName);
+	protected class ConnectivityReceiver extends com.slaterama.quantumsheep.content.ConnectivityReceiver {
+		public ConnectivityReceiver(Context context) {
+			super(context);
+		}
 
-		public void setLastName(String lastName);
+		@Override
+		public void onConnectionChange(ConnectivityManager connectivityManager, WifiManager wifiManager) {
+			boolean networkStatePermission;
+			NetworkInfo activeNetworkInfo = null;
+			boolean wifiStatePermission;
+			WifiInfo connectionInfo = null;
 
-		public void setUsername(String username);
+			try {
+				activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+				networkStatePermission = true;
+			} catch (SecurityException e) {
+				networkStatePermission = false;
+			}
 
-		public void setActive(boolean active);
+			try {
+				connectionInfo = wifiManager.getConnectionInfo();
+				wifiStatePermission = true;
+			} catch (SecurityException e) {
+				wifiStatePermission = false;
+			}
 
-		public void setCreatedAt(Date createdAt);
-
-		public void setUpdatedAt(Date updatedAt);
+			mView.onConnectivityChange(connectivityManager, networkStatePermission, activeNetworkInfo,
+					wifiManager, wifiStatePermission, connectionInfo);
+		}
 	}
+
+	public static interface UserViewOne
+			extends IUser, IConnectivity {}
 }

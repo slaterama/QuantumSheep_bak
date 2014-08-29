@@ -9,9 +9,20 @@
 				tools:context="com.slaterama.quantumsheep.view.MvpFragmentOne">
 
 	<TextView
+		android:id="@+id/fragment_mvp_one_connectivity_status"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:padding="@dimen/horizontal_margin_between_component_and_parent"
+		android:background="@color/green"
+		tools:text="Connection Status: WiFi" />
+
+	<TextView
 		android:id="@+id/fragment_mvp_one_user_id_label"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_below="@id/fragment_mvp_one_connectivity_status"
+		android:layout_marginTop="@dimen/vertical_margin_between_components"
 		android:text="@string/fragment_mvp_one_user_id_label"/>
 
 	<TextView
